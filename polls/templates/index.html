@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h3> HELLO! </h3>
+<ul>
+   {% for movie in movies %}
+      <li><a href=" movie/details/{{movie.id}}">{{movie.title}}</a></li>
+   {% endfor %}
+</ul>
+{% endblock %}

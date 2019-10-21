@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'polls',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,8 +76,12 @@ WSGI_APPLICATION = 'RottenPotatoes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'qhjmkzxd',
+        'USER': 'qhjmkzxd',
+        'PASSWORD': 'CyG8PctBvzLg1P-LFN4hjw50YNj8s4OA',
+        'HOST': 'salt.db.elephantsql.com',
+        'PORT': '5432'
     }
 }
 

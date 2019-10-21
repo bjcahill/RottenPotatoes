@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h3> {{movie.title}} </h3>
+<div>
+   {{movie.director}}
+   <br>
+   <img src={{movie.image}}>
+</div>
+<a href="/polls">Go back</a>
+{% endblock %}
