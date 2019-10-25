@@ -5,7 +5,7 @@ import psycopg2
 class Movie(models.Model):
     title = models.CharField(max_length=100)
     director = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="images/", default="/images/pika.jpeg")
+    image = models.ImageField(upload_to='images', blank=True)
 
     def __str__(self):
         return self.title
