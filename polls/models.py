@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 import psycopg2
 
 # Create your models here.
@@ -22,6 +23,7 @@ class Movie(models.Model):
                               default='G')
     releaseDate = models.DateField(default='1900-01-01')
     studio = models.CharField(max_length=100, default="NULL")
+    link = models.SlugField(max_length=100, default="NULL")
 
     def __str__(self):
         return self.title

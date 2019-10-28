@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from .models import *
 
 def index(request):
-    #return HttpResponse("Hello, world. You're at the polls index.")
     movies = Movie.objects.all()[:10]
 
     context = {
@@ -12,9 +11,9 @@ def index(request):
 
     return render(request, 'index.html', context)
 
-def details(request, title):
-    movie = Movie.objects.get(title=title)
-    reviews = Review.objects.filter(movie=title)
+def details(request, link):
+    movie = Movie.objects.get(link=link)
+    reviews = Review.objects.filter(movie=movie.title)
 
     context = {
         'movie': movie,
