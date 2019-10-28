@@ -1,0 +1,22 @@
+# This is a quick readme to remind us how to use django and other stuff we use in the app.
+
+To create a new app: 
+
+python manage.py startapp <app_name>
+
+To create it's database models:
+
+Edit appname/models.py
+Then run: python manage.py makemigrations polls
+
+
+VirtualENV stuff:
+
+To start the pipenv, run pipenv shell
+then do the regular python manage.py runserver
+
+installing packages:
+
+pipenv install <package_name>
+
+then the pipfile will be updated accordingly
