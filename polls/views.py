@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Movie
+from .models import *
 
 def index(request):
     #return HttpResponse("Hello, world. You're at the polls index.")
@@ -12,11 +12,13 @@ def index(request):
 
     return render(request, 'index.html', context)
 
-def details(request, id):
-    movie = Movie.objects.get(id=id)
+def details(request, title):
+    movie = Movie.objects.get(title=title)
+    reviews = Review.objects.filter(movie=title)
 
     context = {
-        'movie': movie
+        'movie': movie,
+        'reviews': reviews
     }
 
     return render(request, 'details.html', context)
