@@ -10,7 +10,7 @@ class Movie(models.Model):
         ('R', 'R'),
         ('NC-17', 'NC-17'),
     ]
- 
+
     title = models.CharField(max_length=100, default="NULL", primary_key=True)
     director = models.CharField(max_length=100, default="NULL")
     image = models.ImageField(upload_to='images', blank=True)
@@ -25,3 +25,9 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title
+
+class Review(models.Model):
+    id = models.AutoField(primary_key=True)
+    critic = models.CharField(max_length=50, default="NULL")
+    review = models.TextField(max_length=1000, default="NULL")
+    movie = models.ForeignKey(Movie, default=1, on_delete=models.SET_DEFAULT)
