@@ -3,17 +3,46 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initilal-scale=1.0">
+      <style>
+      body {
+         font-family: Verdana, Geneva, sans-serif;
+         background-color: rgb(229, 229, 229);
+      }
+      header {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         background-color: rgb(0, 123, 255);
+         color: white;
+         text-align: center;
+      }
+
+      footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(30, 30, 30);
+        color: white;
+        text-align: center;
+        height: 80px;
+      }
+      </style>
       <title>RottenPotatoes</title>
    </head>
-   <body>
-      <header>
-         <h1>RottenPotatoes</h1>
+   <body id="body">
+      <header id="header">
+         <h1>Rotten Potatoes</h1>
       </header>
-      <div>
+      <div id="content">
+         <br><br><br>
          {% block content %}
          {% endblock %}
-         <br>
-         <a href="/admin"> Admin Login</a>
       </div>
+      <footer id="footer">
+         <br>
+         <a href="/admin" style="text-decoration: none; color: white;"> Admin Login</a>
+      </footer>
    </body>
 </html>

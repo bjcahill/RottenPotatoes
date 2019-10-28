@@ -3,9 +3,25 @@ import psycopg2
 
 # Create your models here.
 class Movie(models.Model):
-    title = models.CharField(max_length=100)
-    director = models.CharField(max_length=100)
+    RATING_CHOICES = [
+        ('G', 'G'),
+        ('PG', 'PG'),
+        ('PG-13', 'PG-13'),
+        ('R', 'R'),
+        ('NC-17', 'NC-17'),
+    ]
+ 
+    title = models.CharField(max_length=100, default="NULL", primary_key=True)
+    director = models.CharField(max_length=100, default="NULL")
     image = models.ImageField(upload_to='images', blank=True)
+    star = models.CharField(max_length=100, default="NULL")
+    score = models.FloatField(default=0)
+    runTime = models.IntegerField(default=0)
+    rating = models.CharField(max_length=5,
+                              choices=RATING_CHOICES,
+                              default='G')
+    releaseDate = models.DateField(default='1900-01-01')
+    studio = models.CharField(max_length=100, default="NULL")
 
     def __str__(self):
         return self.title

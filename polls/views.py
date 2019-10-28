@@ -12,8 +12,8 @@ def index(request):
 
     return render(request, 'index.html', context)
 
-def details(request, id):
-    movie = Movie.objects.get(id=id)
+def details(request, title):
+    movie = Movie.objects.get(title=title)
 
     context = {
         'movie': movie
