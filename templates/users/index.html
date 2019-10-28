@@ -1,0 +1,15 @@
+{% load socialaccount %}
+{% providers_media_js %}
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Google Registration</title>
+   </head>
+   <body>
+      {{user}}
+      <a href="{% provider_login_url "google" %}">Google Connect</a>
+      <a href="{% url 'logout' %}">ACTUALLY WORK LOGOUT THANKS</a>
+      </div>
+   </body>
+</html>
+
