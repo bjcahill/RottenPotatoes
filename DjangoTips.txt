@@ -7,7 +7,7 @@ python manage.py startapp <app_name>
 To create it's database models:
 
 Edit appname/models.py
-Then run: python manage.py makemigrations polls
+Then run: python manage.py makemigrations movies
 
 
 VirtualENV stuff:
