@@ -87,7 +87,10 @@ DATABASES = {
         'USER': 'qhjmkzxd',
         'PASSWORD': 'CyG8PctBvzLg1P-LFN4hjw50YNj8s4OA',
         'HOST': 'salt.db.elephantsql.com',
-        'PORT': '5432'
+        'PORT': '5432',
+        'TEST': {
+            'NAME': 'qhjmkzxd'
+        }
     }
 }
 

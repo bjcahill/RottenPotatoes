@@ -14,7 +14,7 @@ class Movie(models.Model):
 
     title = models.CharField(max_length=100, default="NULL", primary_key=True)
     director = models.CharField(max_length=100, default="NULL")
-    image = models.ImageField(upload_to='images', blank=True)
+    image = models.ImageField(upload_to='images', blank=True, default='media/images/SW1.jpg')
     star = models.CharField(max_length=100, default="NULL")
     score = models.FloatField(default=0)
     runTime = models.IntegerField(default=0)
@@ -25,11 +25,19 @@ class Movie(models.Model):
     studio = models.CharField(max_length=100, default="NULL")
     link = models.SlugField(max_length=100, default="NULL")
 
+    def getTitle(self):
+        return self.title
+
+    def getDirector(self):
+        return self.director
+
     def __str__(self):
         return self.title
 
 class Review(models.Model):
-    id = models.AutoField(primary_key=True)
-    critic = models.CharField(max_length=50, default="NULL")
+    critic = models.CharField(max_length=50, default="NULL", primary_key=True)
     review = models.TextField(max_length=1000, default="NULL")
     movie = models.ForeignKey(Movie, default=1, on_delete=models.SET_DEFAULT)
+
+    def getCritic(self):
+        return self.critic
