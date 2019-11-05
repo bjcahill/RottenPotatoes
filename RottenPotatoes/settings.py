@@ -87,7 +87,13 @@ DATABASES = {
         'USER': 'qhjmkzxd',
         'PASSWORD': 'CyG8PctBvzLg1P-LFN4hjw50YNj8s4OA',
         'HOST': 'salt.db.elephantsql.com',
-        'PORT': '5432'
+        'PORT': '5432',
+        'TEST': {
+            'NAME': 'qhjmkzxd'
+        },
+        'COVERAGE': {
+            'NAME': 'qhjmkzxd'
+        }
     }
 }
 
@@ -129,7 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = BASE_DIR
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
