@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initilal-scale=1.0">
+      <style>
+      body {
+         font-family: Verdana, Geneva, sans-serif;
+         background-color: rgb(229, 229, 229);
+      }
+      header {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         background-color: rgb(0, 123, 255);
+         color: white;
+         text-align: center;
+         z-index: 1;
+      }
+
+      footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(30, 30, 30);
+        color: white;
+        text-align: center;
+        height: 60px;
+      }
+      </style>
+      <title>RottenPotatoes</title>
+   </head>
+   <body id="body">
+      <header id="header">
+         <h2>Rotten Potatoes</h2>
+      </header>
+      <div id="content">
+         <br><br><br>
+         {% block content %}
+         {% endblock %}
+      </div>
+      <footer id="footer">
+         <br>
+         <a href="/admin" style="text-decoration: none; color: white;"> Admin Login</a>
+      </footer>
+   </body>
+</html>
