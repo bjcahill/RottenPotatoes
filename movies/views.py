@@ -22,7 +22,7 @@ def details(request, link):
     }
 
     return render(request, 'details.html', context)
-
+  
 def submitMovie(request):
     if request.method == "POST":
         form = MovieForm(request.POST)
@@ -34,3 +34,4 @@ def submitMovie(request):
         form = MovieForm()
         context = {'form': form}
         return render(request, 'submitMovie.html', context)
+

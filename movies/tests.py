@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from polls.models import *
 from polls.forms import *
 
@@ -25,3 +26,4 @@ class ReviewTests(TestCase):
     def test1(self):
         review = Review.objects.get(critic="Joe")
         self.assertEqual(review.getCritic(), "Joe")
+
