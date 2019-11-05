@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'polls',
+    'movies',
     'users',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -90,6 +90,9 @@ DATABASES = {
         'PORT': '5432',
         'TEST': {
             'NAME': 'qhjmkzxd'
+        },
+        'COVERAGE': {
+            'NAME': 'qhjmkzxd'
         }
     }
 }
@@ -132,7 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'polls/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'movies/media')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

@@ -28,7 +28,7 @@ from users.views import logout
 from django.contrib.auth import login
 
 urlpatterns = [
-    path('polls/', include('polls.urls')),
+    path('movies/', include('movies.urls')),
     path('users/', include('users.urls')),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
