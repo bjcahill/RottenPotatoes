@@ -7,13 +7,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0002_review'),
+        ('movies', '0002_review'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='review',
             name='movie',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to='polls.Movie'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.SET_DEFAULT, to='movies.Movie'),
         ),
     ]
