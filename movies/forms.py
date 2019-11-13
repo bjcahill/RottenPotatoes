@@ -4,7 +4,16 @@ from .models import *
 class MovieForm(ModelForm):
     class Meta:
         model = Movie
-        fields = '__all__'
+        fields = ['title',
+                  'director',
+                  'image',
+                  'star',
+                  'score',
+                  'runTime',
+                  'rating',
+                  'releaseDate',
+                  'studio',
+                  'link']
 
 class TestMovieForm(ModelForm):
     class Meta:
