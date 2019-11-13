@@ -7,7 +7,7 @@
    <a class="mybtn" href="../../submitReview">Submit Review</a>
 
    <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
-   <br><br>
+   <br><br><br><br>
 
    <div style="margin-left: 15%; margin-right: 10%; display: inline-block; width: 250px; height: 375px">
       <img src="{{movie.image.url}}" alt="Image Not Found" width=100% height=100%>
@@ -32,19 +32,19 @@
          <li>Studio: {{movie.studio}}</li>
       </ul>
    </div>
-   <br><br><br>
-   <br><br>
-   <div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
-      <u1>
-         {% for review in reviews %}
-            <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
-               <li><h4>{{review.critic}}:</h4></li>
-               <li style="margin-left: 40px;">{{review.review}}</li>
-               <br>
-            </div>
+</div>
+<br><br><br>
+<br>
+<div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
+   <u1>
+      {% for review in reviews %}
+         <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
+            <li><h4>{{review.critic}}:</h4></li>
+            <li style="margin-left: 40px;">{{review.review}}</li>
             <br>
-         {% endfor %}
-      </u1>
-   </div>
+         </div>
+         <br>
+      {% endfor %}
+   </u1>
 </div>
 {% endblock %}
