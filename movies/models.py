@@ -25,6 +25,9 @@ class Movie(models.Model):
     studio = models.CharField(max_length=100, default="NULL")
     link = models.SlugField(max_length=100, default="NULL")
 
+    def __str__(self):
+        return self.title
+
 class Review(models.Model):
     critic = models.CharField(max_length=50, default="NULL", primary_key=True)
     review = models.TextField(max_length=1000, default="NULL")

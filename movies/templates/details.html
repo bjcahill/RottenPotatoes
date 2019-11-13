@@ -1,19 +1,26 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div style="margin-bottom: 80px;">
-   <div style="margin-top: 20px; margin-left: 30px; background-color: red; width: 70px; padding: 5px">
-      <a href="/movies" style="text-decoration: none; color: white;">Go back</a>
-   </div>
-   <h2 style="text-align: center; padding-top: 15px;"> {{movie.title}} </h2>
-   <div style="margin-left: 25%; margin-right: 18%; display: inline-block; width: 250px; height: 375px">
+<div style="margin-left:5%;">
+   <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
+
+   <a class="mybtn" href="../../submitReview">Submit Review</a>
+
+   <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
+   <br><br>
+
+   <div style="margin-left: 15%; margin-right: 10%; display: inline-block; width: 250px; height: 375px">
       <img src="{{movie.image.url}}" alt="Image Not Found" width=100% height=100%>
    </div>
    <div style="display: inline-block;
                position: absolute;
-               width: 300px;
-               background-color: white;
-               padding:10px;">
+               width: 350px;
+               height: 375px;
+               background-color: rgb(60, 189, 209);
+               border-radius:50px;
+               padding:50px;
+               color:white;
+               font-size: 18px">
       <h3>Movie Details</h3>
       <ul style="list-style-type:none;">
          <li>Director: {{movie.director}}</li>
@@ -25,11 +32,12 @@
          <li>Studio: {{movie.studio}}</li>
       </ul>
    </div>
-   <br><br><br><br><br>
+   <br><br><br>
+   <br><br>
    <div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
       <u1>
          {% for review in reviews %}
-            <div style="background-color: white; padding:10px;">
+            <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
                <li><h4>{{review.critic}}:</h4></li>
                <li style="margin-left: 40px;">{{review.review}}</li>
                <br>

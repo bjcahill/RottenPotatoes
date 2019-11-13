@@ -1,3 +1,51 @@
+.mybtn {
+   display: inline-block;
+   text-align: right;
+   text-decoration: none;
+   color: white;
+   background-color: rgb(37, 150, 141);
+   padding: 10px;
+   border-radius: 10px;
+   margin-left: 20px;
+   font-size: 16px;
+}
+
+.mybtn:hover {
+   background: rgb(50, 213, 235);
+}
+
+.goback {
+   display: inline-block;
+   text-align: right;
+   text-decoration: none;
+   color: white;
+   background-color: red;
+   padding: 10px;
+   border-radius: 10px;
+   margin-left: 20px;
+   font-size: 16px;
+}
+
+.goback:hover {
+   background: rgb(255, 68, 68);
+}
+
+.movie {
+   display: inline-block;
+   width: 200px;
+   height: 300px;
+   text-align: center;
+   margin: 30px;
+   padding: 20px;
+   font-size: 16px;
+}
+
+.movieform {
+   background: rgb(60, 189, 209);
+   padding: 50px;
+   border-radius: 100px;
+   color: white;
+}
 /*----------------------------------------------------
 @File: Default Styles
 @Author: Rocky Ahmed
@@ -9,7 +57,7 @@ is the file you need to edit to change the look of the
 theme.
 ---------------------------------------------------- */
 /*=====================================================================
-@Template Name: Builder Construction 
+@Template Name: Builder Construction
 @Author: Rocky Ahmed
 @Developed By: Rocky Ahmed
 @Developer URL: http://rocky.wethemez.com
@@ -25,11 +73,11 @@ Table of Content:
 05/ banner
 06/ breadcrumb
 07/ about
-08/ project 
-09/ price 
-10/ blog  
-11/ service  
-12/ contact 
+08/ project
+09/ price
+10/ blog
+11/ service
+12/ contact
 13/ footer
 
 =====================================================================*/
@@ -3188,7 +3236,7 @@ h6 {
   .area-heading .main_btn:hover {
     border: 1px solid #f84b67; }
 
-/* End  About Area css 
+/* End  About Area css
 ============================================================================================ */
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/
