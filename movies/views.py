@@ -4,13 +4,27 @@ from .models import *
 from .forms import *
 
 def index(request):
-    movies = Movie.objects.all()[:10]
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        movies = Movie.objects.all().filter(title__icontains=search_term)
+    else:
+        movies = Movie.objects.all()
 
     context = {
         'movies': movies
     }
 
     return render(request, 'index.html', context)
+
+def search(request, term):
+    movies = Movie.objects.all()
+
+    context = {
+        'movies': movies
+    }
+
+    return (render, 'index.html', context)
+
 
 def details(request, link):
     movie = Movie.objects.get(link=link)
@@ -27,20 +41,22 @@ def submitMovie(request):
     if request.method == "POST":
         form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
-            #Movie.objects.create(
-            #    title=request.POST.get('title'),
-            #    director=request.POST.get('director'),
-            #    image=request.FILES.get('file'),
-            #    star=request.POST.get('star'),
-            #    score=request.POST.get('score'),
-            #    runTime=request.POST.get('runTime'),
-            #    rating=request.POST.get('rating'),
-            #    releaseDate=request.POST.get('releaseDate'),
-            #    studio=request.POST.get('studio'),
-            #    link=request.POST.get('link'))
             form.save()
-            return redirect('index')
+            return redirect('..')
     else:
         form = MovieForm()
         context = {'form': form}
         return render(request, 'submitMovie.html', context)
+
+def submitReview(request):
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('../details/' + Movie.objects.get(title=request.POST['movie']).link);
+        else:
+            return redirect("/")
+    else:
+        form = ReviewForm()
+        context = {'form': form}
+        return render(request, 'submitReview.html', context)

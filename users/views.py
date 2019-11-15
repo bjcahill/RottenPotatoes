@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from .models import Usermodel
 from .models import *
+from django.apps import apps
+Review = apps.get_model('movies', 'Review')
 
 # Get users and display them
 
@@ -21,9 +23,11 @@ def logout(request):
 
 def profile(request, link):
     usermodel = Usermodel.objects.get(user_name=link)
+    reviews = Review.objects.filter(critic=link)
 
     context = {
         'usermodel': usermodel,
+        'reviews': reviews
     }
 
     return render(request, 'profile.html', context)

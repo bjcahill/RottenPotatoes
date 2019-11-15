@@ -1,3 +1,7 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
 {% load socialaccount %}
 
 {% providers_media_js %}
@@ -8,6 +12,8 @@
 			.gap-22 {
 				width:100%;
 				height:22px;
+            color:white;
+            font-size: 16px;
 			}
 		</style>
 	</head>
@@ -36,13 +42,15 @@
          {% if usermodel.user == user %}
             <div class="gap-22">
                Welcome, {{usermodel.user_name}}!
-               <br>
+
             </div>
 
             <div class="gap-22">
                <a href="profile/{{usermodel.user_name}}">Go to your profile</a>
                <br>
             </div>
+            <br>
+            <br><br>
          {% endif %}
 
       {% endfor %}
@@ -55,7 +63,7 @@
          </div>
 
       {% endif %}
-      
+
    </body>
 </html>
-
+{% endblock %}
