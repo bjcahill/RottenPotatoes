@@ -54,6 +54,8 @@ def submitReview(request):
         if form.is_valid():
             form.save()
             return redirect('../details/' + Movie.objects.get(title=request.POST['movie']).link);
+        else:
+            return redirect("/")
     else:
         form = ReviewForm()
         context = {'form': form}

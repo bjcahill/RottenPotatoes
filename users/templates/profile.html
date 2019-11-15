@@ -23,5 +23,16 @@
          <li>Average Movie Rating: {{usermodel.average_rating}}</li>
       </ul>
    </div>
+   <div>
+      <br><br>
+      {% for review in reviews %}
+         <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
+            <li><h4>{{review.critic}}:</h4></li>
+            <li style="margin-left: 40px;">{{review.review}}</li>
+            <br>
+         </div>
+         <br>
+      {% endfor %}
+   </div>
 </div>
 {% endblock %}

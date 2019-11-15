@@ -32,3 +32,8 @@ class Review(models.Model):
     critic = models.CharField(max_length=50, default="NULL", primary_key=True)
     review = models.TextField(max_length=1000, default="NULL")
     movie = models.ForeignKey(Movie, default=1, on_delete=models.SET_DEFAULT)
+
+class UserReview(models.Model):
+    critic = models.CharField(max_length=50, default="NULL", primary_key=True)
+    review = models.TextField(max_length=1000, default="NULL")
+    movie = models.ForeignKey(Movie, default=1, on_delete=models.SET_DEFAULT)
