@@ -25,6 +25,11 @@
       <title>Google Registration</title>
    </head>
    <body>
+
+      <div style="margin-top: 20px; margin-left: 30px; background-color: red; width: 70px; padding: 5px">
+         <a href="../signup" style="text-decoration: none; color: white;">Sign Up</a>
+      </div>
+
       {% if not user.is_authenticated %}
          <div class="gap-22">
                Bruh, you need to log in
@@ -46,7 +51,7 @@
             </div>
 
             <div class="gap-22">
-               <a href="profile/{{usermodel.user_name}}">Go to your profile</a>
+               <a href="{{usermodel.user_name}}">Go to your profile</a>
                <br>
             </div>
             <br>

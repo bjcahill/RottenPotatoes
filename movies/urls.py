@@ -6,5 +6,6 @@ urlpatterns = [
     path('details/<slug:link>/', views.details, name='details'),
     path('submitMovie/', views.submitMovie, name='submitMovie'),
     path('submitReview/', views.submitReview, name='submitReview'),
-    path('search/', views.search, name='search')
+    path('search/', views.search, name='search'),
+    path('nowplaying/', views.nowplaying, name = 'nowplaying'),
 ]
