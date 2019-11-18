@@ -2,10 +2,16 @@
 
 {% block content %}
 <div style="margin-bottom: 80px;">
-   <div style="margin-top: 20px; margin-left: 30px; background-color: red; width: 70px; padding: 5px">
-      <a href="/users/" style="text-decoration: none; color: white;">Go back</a>
+
+   {% if usermodel != None %}
+      <div style="margin-top: 20px; margin-left: 30px; background-color: red; width: 120px; padding: 5px">
+         <a href="settings/" style="text-decoration: none; color: white;">Go to settings</a>
+      </div>
+      <div style="margin-top: -35px; margin-left: 200px; background-color: red; width: 120px; padding: 5px">
+            <a href="../../logout" style="text-decoration: none; color: white;">Sign Out</a>
+   {% endif %}
    </div>
-   <h2 style="text-align: center; padding-top: 15px;"> {{usermodel.user_name}} </h2>
+   <h2 style="text-align: center; padding-top: 15px;"> {{page_usermodel.user_name}} </h2>
    <div style="margin-left: 25%; margin-right: 18%; display: inline-block; width: 250px; height: 375px">
       <img src="{{usermodel.image.url}}" alt="Image Not Found" width=100% height=100%>
    </div>
@@ -16,11 +22,10 @@
                padding:10px;">
       <h3>User Details</h3>
       <ul style="list-style-type:none;">
-         <li>Username: {{usermodel.user_name}}</li>
-         <li>First Name: {{usermodel.first_name}}</li>
-         <li>Last Name: {{usermodel.last_name}}</li>
-         <li>Join Date: {{usermodel.join_date}}</li>
-         <li>Average Movie Rating: {{usermodel.average_rating}}</li>
+         <li>Username: {{page_usermodel.user_name}}</li>
+         <li>First Name: {{page_usermodel.first_name}}</li>
+         <li>Last Name: {{page_usermodel.last_name}}</li>
+         <li>Average Movie Rating: {{page_usermodel.average_rating}}</li>
       </ul>
    </div>
    <div>

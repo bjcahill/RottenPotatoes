@@ -37,23 +37,25 @@
                            <li class="nav-item submenu dropdown">
                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Movies</a>
                                <ul class="dropdown-menu">
-                                   <li class="nav-item"><a class="nav-link" href="feature.html">In Theatres</a></li>
-                                   <li class="nav-item"><a class="nav-link" href="price.html">All Movies</a></li>
+                                   <li class="nav-item"><a class="nav-link" href="/movies/nowplaying/">In Theatres</a></li>
+                                   <li class="nav-item"><a class="nav-link" href="/movies/">All Movies</a></li>
                                </ul>
                            </li>
-                           <li class="nav-item submenu dropdown">
-                               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Theatres</a>
-                               <ul class="dropdown-menu">
-                                   <li class="nav-item"><a class="nav-link" href="blog.html">Near me</a></li>
-                                   <li class="nav-item"><a class="nav-link" href="single-blog.html">All Theatres</a></li>
                                </ul>
                            </li>
                        </ul>
                    </div>
                    <div class="right-button">
                        <ul>
-                           <li class="shop-icon"><a href="#"><i class="ti-shopping-cart-full"></i><span>0</span></a></li>
-                           <li><a class="sign_up" href="/accounts/google/login/">Sign in with Google</a></li>
+                            {% if not user.is_authenticated %}
+                                <li><a class="sign_up" href="/accounts/google/login/">Sign in with Google</a></li>
+                            {% elif user.is_superuser %}
+                                <li><a class="sign_up" href="/admin/">Go to Admin Page</a></li>
+                            {% elif usermodel != None %}
+                                <li><a class="sign_up" href="/users/{{usermodel.user_name}}">{{usermodel.user_name}}</a></li>
+                            {% else %}
+                                <li><a class="sign_up" href="/signup">Finish Setting Up Account</a></li>
+                            {% endif %}
                        </ul>
                    </div>
                </div>

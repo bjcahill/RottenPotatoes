@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+Hello there. In order to finish creating your account, you need to provide us with a little bit more information about yourself.
+
+<form class="form" method="post" action="" enctype="multipart/form-data">
+    <div>
+       {% csrf_token %}
+        {{ form.as_p }}
+     </div>
+     <button type="submit">Save</button>
+ </form>
+
+{% endblock %}
