@@ -8,7 +8,6 @@ class MovieForm(ModelForm):
                   'director',
                   'image',
                   'star',
-                  'score',
                   'runTime',
                   'rating',
                   'releaseDate',
@@ -22,5 +21,5 @@ class TestMovieForm(ModelForm):
 
 class ReviewForm(ModelForm):
     class Meta:
-        model = Review
-        fields = ['critic', 'review', 'movie']
+        model = Review2
+        fields = ['critic', 'review', 'score', 'movie']

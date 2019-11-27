@@ -36,7 +36,7 @@ def search(request, term):
 
 def details(request, link):
     movie = Movie.objects.get(link=link)
-    reviews = Review.objects.filter(movie=movie.title)
+    reviews = Review2.objects.filter(movie=movie.title)
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -52,7 +52,6 @@ def details(request, link):
     return render(request, 'details.html', context)
 
 def submitMovie(request):
-
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
@@ -69,7 +68,6 @@ def submitMovie(request):
         return render(request, 'submitMovie.html', context)
 
 def submitReview(request):
-
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
@@ -77,9 +75,17 @@ def submitReview(request):
 
     if request.method == "POST":
         form = ReviewForm(request.POST)
+
         if form.is_valid():
             form.save()
-            return redirect('../details/' + Movie.objects.get(title=request.POST['movie']).link);
+
+            movie = Movie.objects.get(title=request.POST['movie'])
+            movie.reviews += 1
+            movie.aggScore += float(request.POST['score'])
+            movie.score = movie.aggScore / movie.reviews
+            movie.save()
+
+            return redirect('../details/' + movie.link);
         else:
             return redirect("/")
     else:
