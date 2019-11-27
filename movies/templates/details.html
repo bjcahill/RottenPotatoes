@@ -39,7 +39,8 @@
    <u1>
       {% for review in reviews %}
          <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
-            <li><h4>{{review.critic}}:</h4></li>
+            <li><h4 style="display: inline-block; margin-right: 30px;">{{review.critic}}</h4>score: {{review.score}}</li>
+            <br>
             <li style="margin-left: 40px;">{{review.review}}</li>
             <br>
          </div>

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from .models import Usermodel
 from .models import *
 from django.apps import apps
-Review = apps.get_model('movies', 'Review')
+Review2 = apps.get_model('movies', 'Review2')
 
 from pages.forms import NewUserForm
 
@@ -49,7 +49,7 @@ def logout(request):
 
 def profile(request, link):
     page_usermodel = Usermodel.objects.get(user_name=link)
-    reviews = Review.objects.filter(critic=link)
+    reviews = Review2.objects.filter(critic=link)
 
     try:
       usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -89,7 +89,7 @@ def settings(request, link):
                                     'image' : usermodel.image})
          context = {'form': form}
          return render(request, 'settings.html', context)
-      
+
        form = NewUserForm(request.POST)
 
        if not form.is_valid():
@@ -101,6 +101,3 @@ def settings(request, link):
        return redirect('../')
     else:
        return render(request, 'pages/accessdenied.html')
-
-    
-
