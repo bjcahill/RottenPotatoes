@@ -1,12 +1,21 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div style="margin-left:5%;">
-   <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
 
-   <a class="mybtn" href="../../submitReview">Submit Review</a>
+{% load movie_filters %}
+<div>
+   <center>
+      <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
+      <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
 
-   <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
+      {% if usermodel.critic == True %}
+      <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit Critic Review</a>
+      {% elif usermodel.critic == False %}
+      <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit User Review</a>
+      {% else %}
+      {% endif %}
+   </center>
+   
    <br><br><br><br>
 
    <div style="margin-left: 15%; margin-right: 10%; display: inline-block; width: 250px; height: 375px">
@@ -17,7 +26,7 @@
                width: 350px;
                height: 375px;
                background-color: rgb(60, 189, 209);
-               border-radius:50px;
+               border-radius:20px;
                padding:50px;
                color:white;
                font-size: 18px">
@@ -36,10 +45,17 @@
 <br><br><br>
 <br>
 <div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
+
+   <center>
+      <h3 style="color: white; display: inline-block;">Critic Reviews</h3>
+   <center>
+
+   <br><br><br>
+
    <u1>
-      {% for review in reviews %}
-         <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
-            <li><h4 style="display: inline-block; margin-right: 30px;">{{review.critic}}</h4>score: {{review.score}}</li>
+      {% for review in critic_reviews %}
+         <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px;">
+            <li><h3 style="display: inline-block; margin-right: 30px;">{{review.user | get_user_name}}</h3>{{review.score | to_int}} / 10</li>
             <br>
             <li style="margin-left: 40px;">{{review.review}}</li>
             <br>
@@ -47,5 +63,28 @@
          <br>
       {% endfor %}
    </u1>
+
+   <br><br><br><br>
+
+   <center>
+      <h3 style="color: white; display: inline-block;">User Reviews</h3>
+   <center>
+
+   <br><br><br>
+
+   <u1>
+         {% for review in user_reviews %}
+            <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px;">
+               <li><h3 style="display: inline-block; margin-right: 30px;">{{review.user | get_user_name}}</h3>{{review.score | to_int}} / 10</li>
+               <br>
+               <li style="margin-left: 40px;">{{review.review}}</li>
+               <br>
+            </div>
+            <br>
+         {% endfor %}
+      </u1>
+
+      <br><br><br>
+
 </div>
 {% endblock %}

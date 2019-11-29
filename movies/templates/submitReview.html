@@ -3,9 +3,12 @@
 
 {% block content %}
 
-<h1 style="color:white; display: inline-block">Submit Review</h1>
+<center>
+    <a class="goback" href="../../details/{{movie.link}}" style="text-decoration: none; color: white;">Go back</a>
+    <h2 style="color:white; display: inline-block">Submit {{type}} Review for {{movie}}</h2>
+</center>
 
-<a class="goback" href=".." style="text-decoration: none; color: white;">Go back</a>
+
 <br><br>
 
 <form class="movieform" method="post" action="" enctype="multipart/form-data">

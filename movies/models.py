@@ -42,6 +42,8 @@ class Review2(models.Model):
     review = models.TextField(max_length=1000, default="NULL")
     score = models.FloatField(default=0)
     movie = models.ForeignKey(Movie, default=1, on_delete=models.SET_DEFAULT)
+    user = models.ForeignKey('auth.User', default=1, on_delete=models.SET_DEFAULT)
+    review_type = models.BooleanField(default=False)
 
 class UserReview(models.Model):
     critic = models.CharField(max_length=50, default="NULL", primary_key=True)

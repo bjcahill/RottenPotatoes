@@ -11,6 +11,7 @@ class Usermodel(models.Model):
    average_rating = models.FloatField(default = 0)
    user = models.ForeignKey('auth.User', default=1, on_delete=models.SET_DEFAULT)
    image = models.ImageField(upload_to='images', blank=True)
+   critic = models.BooleanField(default=False)
 
    def __str__(self):
       return self.user_name

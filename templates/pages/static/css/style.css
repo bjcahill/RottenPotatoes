@@ -1,5 +1,5 @@
 .mybtn {
-   display: inline-block;
+   float: right;
    text-align: right;
    text-decoration: none;
    color: white;
@@ -15,7 +15,7 @@
 }
 
 .goback {
-   display: inline-block;
+   float: left;
    text-align: right;
    text-decoration: none;
    color: white;

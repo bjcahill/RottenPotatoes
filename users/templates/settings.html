@@ -3,11 +3,20 @@
 
 {% block content %}
 
-<div style="margin-top: 30px; margin-left: 0px; background-color: red; width: 200px; padding: 5px">
-    <a href="../" style="text-decoration: none; color: white;">Go back to user profile</a>
+<!-- <script>
+    alert('{{ message }}');
+</script> -->
+
+<div style = "margin-left: -2%;">
+    <a class="goback" href=".." style="text-decoration: none;">Go back</a>
 </div>
 
-Feel free to edit your information. Keep in mind however, that you may not change your username to another user's username.
+<br><br><br>
+
+<div>
+    <h3 style="color: white; display: inline-block;"> Feel free to edit your information.</h3>
+</div>
+
 
 <form class="form" method="post" action="" enctype="multipart/form-data">
     <div>
@@ -16,5 +25,8 @@ Feel free to edit your information. Keep in mind however, that you may not chang
      </div>
      <button type="submit">Save</button>
  </form>
+
+<br><br>
+
 
 {% endblock %}

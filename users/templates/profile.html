@@ -1,42 +1,71 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div style="margin-bottom: 80px;">
+
+{% load user_filters %}
+<div>
 
    {% if usermodel != None %}
-      <div style="margin-top: 20px; margin-left: 30px; background-color: red; width: 120px; padding: 5px">
-         <a href="settings/" style="text-decoration: none; color: white;">Go to settings</a>
-      </div>
-      <div style="margin-top: -35px; margin-left: 200px; background-color: red; width: 120px; padding: 5px">
-            <a href="../../logout" style="text-decoration: none; color: white;">Sign Out</a>
+   <center>
+      <a class="goback" href="javascript:history.back()" style="text-decoration: none;">Go back</a>
+      <h1 style="color: white; display: inline-block;"> {{page_usermodel.user_name}}</h1>
+      <a class="mybtn" href="settings">Go to Settings</a>
+   </center>
+   <!-- <a href="../../logout" -->
+   {% else %}
+   <center>
+      <a class="goback" href="javascript:history.back()" style="text-decoration: none;">Go back</a>
+      <h1 style="color: white; display: inline-block;"> {{page_usermodel.user_name}}</h1>
+   </center>
    {% endif %}
+
+   <br><br><br>
+
    </div>
-   <h2 style="text-align: center; padding-top: 15px;"> {{page_usermodel.user_name}} </h2>
-   <div style="margin-left: 25%; margin-right: 18%; display: inline-block; width: 250px; height: 375px">
+   </center>
+   <div style="margin-left: 15%; margin-right: 20%; display: inline-block; width: 300px; height: 300px">
       <img src="{{usermodel.image.url}}" alt="Image Not Found" width=100% height=100%>
    </div>
    <div style="display: inline-block;
                position: absolute;
                width: 300px;
-               background-color: white;
-               padding:10px;">
+               height: 300px;
+               background-color: rgb(60, 189, 209);
+               border-radius:20px;
+               padding:50px;
+               color:white;
+               font-size: 18px">
       <h3>User Details</h3>
       <ul style="list-style-type:none;">
          <li>Username: {{page_usermodel.user_name}}</li>
          <li>First Name: {{page_usermodel.first_name}}</li>
          <li>Last Name: {{page_usermodel.last_name}}</li>
          <li>Average Movie Rating: {{page_usermodel.average_rating}}</li>
+         <br>
+         {% if page_usermodel.critic %}
+         <h3>Certified Critic</h3>
+         {% endif %}
       </ul>
    </div>
-   <div>
-      <br><br>
+   </center>
+
+   <br><br><br><br><br><br>
+
+   <center>
+      <h2 style="color: white; display: inline-block;">Movie Reviews</h2>
+   <center>
+
+   <br><br><br>
+
+   <div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
       {% for review in reviews %}
-         <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
-            <li><h4>{{review.critic}}:</h4></li>
-            <li style="margin-left: 40px;">{{review.review}}</li>
-            <br>
-         </div>
+      <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px;">
+         <li><h3 style="display: inline-block; margin-right: 30px;">{{review.movie}}</h3>{{review.score | to_int}} / 10</li>
          <br>
+         <li style="margin-left: 40px;">{{review.review}}</li>
+         <br>
+      </div>
+      <br>
       {% endfor %}
    </div>
 </div>

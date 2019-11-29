@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django import forms
 from .models import *
 
 class MovieForm(ModelForm):
@@ -20,6 +21,12 @@ class TestMovieForm(ModelForm):
         fields = ('title',)
 
 class ReviewForm(ModelForm):
+
+    score = forms.ChoiceField(choices=[(x, x) for x in range(0, 11)])
+
     class Meta:
         model = Review2
-        fields = ['critic', 'review', 'score', 'movie']
+        fields = ['score', 'review']
+        widgets = {
+            'review' : forms.Textarea(attrs= {'class' : 'form-control', 'placeholder' : 'Enter text', 'style': 'depth: 500px'})
+        }
