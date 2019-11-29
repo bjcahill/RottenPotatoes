@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+{% load movie_filters %}
+<center>
+    <a class="goback" href="../../details/{{movie.link}}" style="text-decoration: none; color: white;">Go back</a>
+    <h2 style="color:white; display: inline-block">All {{reviewtype}} Reviews for {{movie}}</h2>
+</center>
+
+<br><br><br>
+
+<div style="margin-left: 10%; margin-right: 10%; list-style-type:none;"></div>
+
+    {% if not reviews %}
+        <center>
+        <h4 style="color: white; display: inline-block; margin:5px;">No reviews.</h4>
+        {% if usermodel.critic and not user.is_superuser %}
+            <a href="../../submitReview/{{movie.link}}" style="text-decoration: none; color: white;"> Add one here.</a>
+        {% endif %}
+        </center>
+    {% endif %}
+
+    <u1>
+    {% for review in reviews %}
+    <center>
+        <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px; list-style-type:none;">
+            <li><a href="../../../users/{{review.user | get_user_name}}" style="font-weight: 600; font-size: 24px; color: white; display: inline-block; margin:10px;">{{review.user | get_user_name}}</a>{{review.score | to_int}} / 10</li>
+            <br>
+            <li>{{review.review}}</li>
+            <br>
+        </div>
+        <br>
+    </center>
+    {% endfor %}
+    </u1>
+
+</div>
+
+<br><br><br>
+{% endblock %}

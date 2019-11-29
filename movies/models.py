@@ -23,10 +23,19 @@ class Movie(models.Model):
     releaseDate = models.DateField(default='1900-01-01')
     studio = models.CharField(max_length=100, default="NULL")
     link = models.SlugField(max_length=100, default="NULL")
-
+    
     score = models.FloatField(default=0)
     reviews = models.FloatField(default=0)
     aggScore = models.FloatField(default=0)
+
+    user_score = models.FloatField(default=0)
+    critic_score = models.FloatField(default=0)
+
+    user_reviews = models.IntegerField(default=0)
+    critic_reviews = models.IntegerField(default=0)
+
+    user_aggScore = models.IntegerField(default=0)
+    critic_aggScore = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -44,6 +53,7 @@ class Review2(models.Model):
     movie = models.ForeignKey(Movie, default=1, on_delete=models.SET_DEFAULT)
     user = models.ForeignKey('auth.User', default=1, on_delete=models.SET_DEFAULT)
     review_type = models.BooleanField(default=False)
+    #date_submitted = models.DateTimeField(default )
 
 class UserReview(models.Model):
     critic = models.CharField(max_length=50, default="NULL", primary_key=True)

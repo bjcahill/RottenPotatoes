@@ -51,7 +51,7 @@ def logout(request):
 
 def profile(request, link):
     page_usermodel = Usermodel.objects.get(user_name=link)
-    reviews = Review2.objects.filter(user=request.user)
+    reviews = list(reversed(Review2.objects.filter(user=request.user)))
 
     try:
       usermodel = Usermodel.objects.get(user_id=request.user.id)

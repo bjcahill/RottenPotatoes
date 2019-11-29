@@ -8,4 +8,5 @@ urlpatterns = [
     path('submitReview/<slug:link>/', views.submitReview, name='submitReview'),
     path('search/', views.search, name='search'),
     path('nowplaying/', views.nowplaying, name = 'nowplaying'),
+    path('allreviews/<slug:link>/<slug:review_type>', views.allReviews, name = 'allReviews'),
 ]

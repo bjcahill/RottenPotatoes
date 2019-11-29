@@ -16,4 +16,8 @@ def get_user_name(user):
         return usermodel.user_name
     else:
         return "Unknown User"
+
+@register.filter(name='round_movie_score')
+def round_movie_score(value):
+    return str(round(value, 1))
     

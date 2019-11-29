@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 
 from users.models import Usermodel
+from movies.models import Review2
 
 def index(request):
     if 'search' in request.GET:
@@ -36,8 +37,9 @@ def search(request, term):
 
 def details(request, link):
     movie = Movie.objects.get(link=link)
-    user_reviews = Review2.objects.filter(movie=movie.title,review_type = False)
-    critic_reviews = Review2.objects.filter(movie=movie.title,review_type = True)
+    user_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = False)))[:3]
+    print(user_reviews)
+    critic_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = True)))[:3]
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
@@ -71,7 +73,7 @@ def submitMovie(request):
 def submitReview(request,link):
     movie = Movie.objects.get(link=link)
 
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated or request.user.is_superuser:
         return render(request, 'pages/accessdenied.html')
 
     try:
@@ -93,10 +95,20 @@ def submitReview(request,link):
             new_post.review_type = True if usermodel.critic else False
             new_post.save()
 
-            movie.reviews += 1
-            movie.aggScore += float(request.POST['score'])
-            movie.score = movie.aggScore / movie.reviews
-            movie.save()
+            if not usermodel.critic:
+
+                movie.user_reviews += 1
+                movie.user_aggScore += float(request.POST['score'])
+                movie.user_score = movie.user_aggScore / movie.user_reviews
+                movie.save()
+            
+            else:
+
+                movie.critic_reviews += 1
+                movie.critic_aggScore += float(request.POST['score'])
+                movie.critic_score = movie.critic_aggScore / movie.critic_reviews
+                movie.save() 
+
 
             return redirect('../../details/' + movie.link);
         else:
@@ -116,3 +128,19 @@ def nowplaying(request):
     context = {'usermodel' : usermodel,}
 
     return render(request, 'nowplaying.html', context)
+
+def allReviews(request,link,review_type):
+    movie = Movie.objects.get(link=link)
+
+    type_boolean = True if review_type == "critic" else False
+
+    reviews = list(reversed(Review2.objects.filter(movie = movie,review_type = type_boolean)))
+
+    try:
+        usermodel = Usermodel.objects.get(user_id=request.user.id)
+    except:
+        usermodel = None
+
+    context = {'usermodel' : usermodel, 'reviews' : reviews, 'movie' : movie, 'reviewtype' : "Critic" if review_type == "critic" else "User"}
+
+    return render(request, 'allReviews.html', context)

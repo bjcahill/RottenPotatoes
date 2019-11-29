@@ -40,7 +40,6 @@
          <li>Username: {{page_usermodel.user_name}}</li>
          <li>First Name: {{page_usermodel.first_name}}</li>
          <li>Last Name: {{page_usermodel.last_name}}</li>
-         <li>Average Movie Rating: {{page_usermodel.average_rating}}</li>
          <br>
          {% if page_usermodel.critic %}
          <h3>Certified Critic</h3>
@@ -58,15 +57,24 @@
    <br><br><br>
 
    <div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
+
+      {% if not reviews %}
+      <center>
+         <h4 style="color: white; display: inline-block; margin:5px;">No reviews.</h4>
+      </center>
+      {% endif %}
+
       {% for review in reviews %}
       <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px;">
-         <li><h3 style="display: inline-block; margin-right: 30px;">{{review.movie}}</h3>{{review.score | to_int}} / 10</li>
+         <li><a href="../../../movies/details/{{review.movie.link}}" style="font-weight: 600; font-size: 24px; color: white; display: inline-block; margin:10px;">{{review.movie}}</a>{{review.score | to_int}} / 10</li>
          <br>
-         <li style="margin-left: 40px;">{{review.review}}</li>
+         <li>{{review.review}}</li>
          <br>
       </div>
       <br>
       {% endfor %}
    </div>
+
+   <br><br><br>
 </div>
 {% endblock %}
