@@ -58,7 +58,7 @@
    {% if not critic_reviews %}
    <center>
       <h4 style="color: white; display: inline-block; margin:5px;">No critic reviews.</h4>
-      {% if usermodel.critic and not user.is_superuser %}
+      {% if user.is_authenticated and usermodel.critic and not user.is_superuser %}
          <a href="../../submitReview/{{movie.link}}" style="text-decoration: none; color: white;"> Add one here.</a>
       {% endif %}
    </center>
@@ -89,7 +89,7 @@
    {% if not user_reviews %}
    <center>
       <h4 style="color: white; display: inline-block; margin:5px;">No user reviews.</h4>
-      {% if not usermodel.critic and not user.is_superuser %}
+      {% if user.is_authenticated and not usermodel.critic and not user.is_superuser %}
          <a href="../../submitReview/{{movie.link}}" style="text-decoration: none; color: white;"> Add one here.</a>
       {% endif %}
    </center>

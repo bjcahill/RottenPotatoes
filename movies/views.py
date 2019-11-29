@@ -38,8 +38,9 @@ def search(request, term):
 def details(request, link):
     movie = Movie.objects.get(link=link)
     user_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = False)))[:3]
-    print(user_reviews)
     critic_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = True)))[:3]
+    print(critic_reviews)
+    print(user_reviews)
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
@@ -135,12 +136,13 @@ def allReviews(request,link,review_type):
     type_boolean = True if review_type == "critic" else False
 
     reviews = list(reversed(Review2.objects.filter(movie = movie,review_type = type_boolean)))
+    print(reviews)
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
         usermodel = None
 
-    context = {'usermodel' : usermodel, 'reviews' : reviews, 'movie' : movie, 'reviewtype' : "Critic" if review_type == "critic" else "User"}
+    context = {'usermodel' : usermodel, 'reviews' : reviews, 'movie' : movie, 'review_text' : "Critic" if review_type == "critic" else "User", 'review_type' : type_boolean}
 
     return render(request, 'allReviews.html', context)

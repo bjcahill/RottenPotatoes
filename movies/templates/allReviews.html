@@ -5,8 +5,8 @@
 
 {% load movie_filters %}
 <center>
-    <a class="goback" href="../../details/{{movie.link}}" style="text-decoration: none; color: white;">Go back</a>
-    <h2 style="color:white; display: inline-block">All {{reviewtype}} Reviews for {{movie}}</h2>
+    <a class="goback" href="/movies/details/{{movie.link}}" style="text-decoration: none; color: white;">Go back</a>
+    <h2 style="color:white; display: inline-block">All {{review_text}} Reviews for {{movie}}</h2>
 </center>
 
 <br><br><br>
@@ -16,7 +16,7 @@
     {% if not reviews %}
         <center>
         <h4 style="color: white; display: inline-block; margin:5px;">No reviews.</h4>
-        {% if usermodel.critic and not user.is_superuser %}
+        {% if user.is_authenticated and usermodel.critic == review_type and not user.is_superuser %}
             <a href="../../submitReview/{{movie.link}}" style="text-decoration: none; color: white;"> Add one here.</a>
         {% endif %}
         </center>
