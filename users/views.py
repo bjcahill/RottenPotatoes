@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
+
+from django.contrib import messages
 
 from .models import Usermodel
 from .models import *
@@ -49,7 +51,8 @@ def logout(request):
 
 def profile(request, link):
     page_usermodel = Usermodel.objects.get(user_name=link)
-    reviews = Review2.objects.filter(critic=link)
+    page_user = page_usermodel.user
+    reviews = list(reversed(Review2.objects.filter(user=page_user)))
 
     try:
       usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -67,7 +70,7 @@ def profile(request, link):
 def settings(request, link):
 
     page_usermodel = Usermodel.objects.get(user_name=link)
-    reviews = Review.objects.filter(critic=link)
+    reviews = Review2.objects.filter(critic=link)
 
     try:
       usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -82,22 +85,22 @@ def settings(request, link):
 
     if page_usermodel == usermodel:
        if not request.method == "POST":
-         form = NewUserForm(initial={'user_name': usermodel.user_name,
-                                    'first_name' : usermodel.first_name,
-                                    'last_name' : usermodel.last_name,
-                                    'email' : usermodel.email,
-                                    'image' : usermodel.image})
-         context = {'form': form}
+
+         form = NewUserForm(instance=usermodel)
+
+         context = {'form': form, 'oldusermodel' : usermodel.user_name}
          return render(request, 'settings.html', context)
 
-       form = NewUserForm(request.POST)
+       form = NewUserForm(request.POST,instance=usermodel)
 
        if not form.is_valid():
          print(form.errors)
-         return redirect('../')
+
+         context = {'form': form, 'message' : form.errors, 'oldusermodel' : usermodel.user_name}
+         return render(request, 'settings.html', context)
 
        form.save()
 
-       return redirect('../')
+       return redirect('/users/' + usermodel.user_name)
     else:
        return render(request, 'pages/accessdenied.html')

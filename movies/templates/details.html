@@ -1,12 +1,21 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div style="margin-left:5%;">
-   <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
 
-   <a class="mybtn" href="../../submitReview">Submit Review</a>
+{% load movie_filters %}
+<div>
+   <center>
+      <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
+      <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
 
-   <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
+      {% if usermodel.critic == True %}
+      <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit Critic Review</a>
+      {% elif usermodel.critic == False %}
+      <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit User Review</a>
+      {% else %}
+      {% endif %}
+   </center>
+   
    <br><br><br><br>
 
    <div style="margin-left: 15%; margin-right: 10%; display: inline-block; width: 250px; height: 375px">
@@ -17,7 +26,7 @@
                width: 350px;
                height: 375px;
                background-color: rgb(60, 189, 209);
-               border-radius:50px;
+               border-radius:20px;
                padding:50px;
                color:white;
                font-size: 18px">
@@ -25,7 +34,8 @@
       <ul style="list-style-type:none;">
          <li>Director: {{movie.director}}</li>
          <li>Star: {{movie.star}}</li>
-         <li>Score: {{movie.score}}</li>
+         <li>User Score: {{movie.user_score | round_movie_score}} / 10</li>
+         <li>Critic Score: {{movie.critic_score | round_movie_score}} / 10</li>
          <li>Run Time: {{movie.runTime}} min</li>
          <li>Rating: {{movie.rating}}</li>
          <li>Release Date: {{movie.releaseDate}}</li>
@@ -36,10 +46,28 @@
 <br><br><br>
 <br>
 <div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
+
+   <center>
+      <a class="goback" href="../../allreviews/{{movie.link}}/critic">See All</a>
+      <h3 style="color: white; display: inline-block;">Top Critic Reviews</h3>
+      <a class="mybtn" href="../../allreviews/{{movie.link}}/critic">See All</a>
+   <center>
+
+   <br><br><br>
+
+   {% if not critic_reviews %}
+   <center>
+      <h4 style="color: white; display: inline-block; margin:5px;">No critic reviews.</h4>
+      {% if user.is_authenticated and usermodel.critic and not user.is_superuser %}
+         <a href="../../submitReview/{{movie.link}}" style="text-decoration: none; color: white;"> Add one here.</a>
+      {% endif %}
+   </center>
+   {% endif %}
+
    <u1>
-      {% for review in reviews %}
-         <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:50px; font-size: 18px;">
-            <li><h4 style="display: inline-block; margin-right: 30px;">{{review.critic}}</h4>score: {{review.score}}</li>
+      {% for review in critic_reviews %}
+         <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px;">
+            <li><a href="../../../users/{{review.user | get_user_name}}" style="font-weight: 600; font-size: 24px; color: white; display: inline-block; margin:10px;">{{review.user | get_user_name}}</a>{{review.score | to_int}} / 10</li>
             <br>
             <li style="margin-left: 40px;">{{review.review}}</li>
             <br>
@@ -47,5 +75,39 @@
          <br>
       {% endfor %}
    </u1>
+
+   <br><br><br><br>
+
+   <center>
+      <a class="goback" href="../../allreviews/{{movie.link}}/user">See All</a>
+      <h3 style="color: white; display: inline-block;">Top User Reviews</h3>
+      <a class="mybtn" href="../../allreviews/{{movie.link}}/user">See All</a>
+   <center>
+
+   <br><br><br>
+
+   {% if not user_reviews %}
+   <center>
+      <h4 style="color: white; display: inline-block; margin:5px;">No user reviews.</h4>
+      {% if user.is_authenticated and not usermodel.critic and not user.is_superuser %}
+         <a href="../../submitReview/{{movie.link}}" style="text-decoration: none; color: white;"> Add one here.</a>
+      {% endif %}
+   </center>
+   {% endif %}
+
+   <u1>
+         {% for review in user_reviews %}
+            <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px;">
+               <li><a href="../../../users/{{review.user | get_user_name}}" style="font-weight: 600; font-size: 24px; color: white; display: inline-block; margin:10px;">{{review.user | get_user_name}}</a>{{review.score | to_int}} / 10</li>
+               <br>
+               <li>{{review.review}}</li>
+               <br>
+            </div>
+            <br>
+         {% endfor %}
+   </u1>
+
+      <br><br><br>
+
 </div>
 {% endblock %}

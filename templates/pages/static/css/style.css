@@ -1,5 +1,5 @@
 .mybtn {
-   display: inline-block;
+   float: right;
    text-align: right;
    text-decoration: none;
    color: white;
@@ -15,7 +15,7 @@
 }
 
 .goback {
-   display: inline-block;
+   float: left;
    text-align: right;
    text-decoration: none;
    color: white;
@@ -43,7 +43,7 @@
 .movieform {
    background: rgb(60, 189, 209);
    padding: 50px;
-   border-radius: 100px;
+   border-radius: 20px;
    color: white;
 }
 /*----------------------------------------------------
