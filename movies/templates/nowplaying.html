@@ -22,13 +22,13 @@
 
    <ul>
       {% for movie in movies %}
-      <li class="movie" href="details/{{movie.link}}"">
-            <a href="details/{{movie.link}}"><img src="{{movie.image.url}}" alt="" width=100% height=100%></a>
+      <li class="movie" href="../details/{{movie.link}}"">
+            <a href="../details/{{movie.link}}"><img src="{{movie.image.url}}" alt="" width=100% height=100%></a>
             <br>
             <br>
-            <a style="text-decoration: none; color: white;" href="details/{{movie.link}}">{{movie.title}}</a>
+            <a style="text-decoration: none; color: white;" href="../details/{{movie.link}}">{{movie.title}}</a>
             <br>
-            <a style="text-decoration: none; color: white;" href="details/{{movie.link}}">{{movie.critic_score | round_movie_score}} / 10</a>
+            <a style="text-decoration: none; color: white;" href="../details/{{movie.link}}">{{movie.critic_score | round_movie_score}} / 10</a>
          </li>
       {% endfor %}
    </ul>
