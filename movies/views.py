@@ -102,13 +102,13 @@ def submitReview(request,link):
                 movie.user_aggScore += float(request.POST['score'])
                 movie.user_score = movie.user_aggScore / movie.user_reviews
                 movie.save()
-            
+
             else:
 
                 movie.critic_reviews += 1
                 movie.critic_aggScore += float(request.POST['score'])
                 movie.critic_score = movie.critic_aggScore / movie.critic_reviews
-                movie.save() 
+                movie.save()
 
 
             return redirect('../../details/' + movie.link);
@@ -120,13 +120,21 @@ def submitReview(request,link):
         return render(request, 'submitReview.html', context)
 
 def nowplaying(request):
+    movies = Movie.objects.all().filter(inTheater = True)
+
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        movies = movies.filter(title__icontains=search_term)
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
         usermodel = None
 
-    context = {'usermodel' : usermodel,}
+    context = {
+        'movies': movies,
+        'usermodel' : usermodel
+    }
 
     return render(request, 'nowplaying.html', context)
 

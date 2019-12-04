@@ -12,18 +12,18 @@ class Movie(models.Model):
         ('NC-17', 'NC-17'),
     ]
 
-    title = models.CharField(max_length=100, default="NULL", primary_key=True)
-    director = models.CharField(max_length=100, default="NULL")
+    title = models.CharField(max_length=100, default="", primary_key=True)
+    director = models.CharField(max_length=100, default="")
     image = models.ImageField(upload_to='images', blank=True, default="omegalul.png")
-    star = models.CharField(max_length=100, default="NULL")
+    star = models.CharField(max_length=100, default="")
     runTime = models.IntegerField(default=0)
     rating = models.CharField(max_length=5,
                               choices=RATING_CHOICES,
                               default='G')
-    releaseDate = models.DateField(default='1900-01-01')
-    studio = models.CharField(max_length=100, default="NULL")
-    link = models.SlugField(max_length=100, default="NULL")
-    
+    releaseDate = models.DateField(default='2000-01-01')
+    studio = models.CharField(max_length=100, default="")
+    link = models.SlugField(max_length=100, default="")
+
     score = models.FloatField(default=0)
     reviews = models.FloatField(default=0)
     aggScore = models.FloatField(default=0)
@@ -36,6 +36,8 @@ class Movie(models.Model):
 
     user_aggScore = models.IntegerField(default=0)
     critic_aggScore = models.IntegerField(default=0)
+
+    inTheater = models.BooleanField(default=0)
 
     def __str__(self):
         return self.title
