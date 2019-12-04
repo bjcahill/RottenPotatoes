@@ -1,8 +1,36 @@
 {% extends 'layout.html' %}
-{% load static %}
 
 {% block content %}
 
-This is where we will put the movies that are now playing
+{% load movie_filters %}
 
+<div id="movies">
+
+   <h1 style="display: inline-block; margin-left: 2%; color:white;"> Movies </h1>
+
+   <a class="mybtn" href="../submitMovie">Submit Movie</a>
+
+   <br><br><br>
+
+   <form class="form-inline active-purple-3 active-purple-4" style="margin-left: 2%; display: inline-block;">
+      <i class="fas fa-search" aria-hidden="true" type="get" style="background: white; padding: 10px; border-radius: 5px;"></i>
+      <input class="form-control form-control-sm ml-3 w-75" type="get" placeholder="Search" aria-label="Search" name="search" size="100">
+      <a class="mybtn" href="." style="display: inline-block;">Reset</a>
+   </form>
+
+   <br>
+
+   <ul>
+      {% for movie in movies %}
+      <li class="movie" href="details/{{movie.link}}"">
+            <a href="details/{{movie.link}}"><img src="{{movie.image.url}}" alt="" width=100% height=100%></a>
+            <br>
+            <br>
+            <a style="text-decoration: none; color: white;" href="details/{{movie.link}}">{{movie.title}}</a>
+            <br>
+            <a style="text-decoration: none; color: white;" href="details/{{movie.link}}">{{movie.critic_score | round_movie_score}} / 10</a>
+         </li>
+      {% endfor %}
+   </ul>
+</div>
 {% endblock %}
