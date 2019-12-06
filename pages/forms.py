@@ -12,3 +12,7 @@ class NewUserForm(forms.ModelForm):
             'last_name' : forms.TextInput(attrs= {'class' : 'form-control', 'placeholder' : 'Enter text', 'style': 'width: 300px'}),
             'email' : forms.TextInput(attrs= {'class' : 'form-control', 'placeholder' : 'Enter text', 'style': 'width: 300px'})
         }
+        labels = {
+        "image" : "Profile Picture",
+        "critic" : "Certified Critic?"
+                 }

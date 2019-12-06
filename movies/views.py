@@ -57,8 +57,7 @@ def details(request, link):
     movie = Movie.objects.get(link=link)
     user_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = False)))[:3]
     critic_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = True)))[:3]
-    print(critic_reviews)
-    print(user_reviews)
+
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
@@ -82,9 +81,6 @@ def submitMovie(request):
     if request.method == "POST":
         form = MovieForm(request.POST, request.FILES)
         link = slugify(request.POST['title'])
-
-        rating = request.POST.get('rating')
-        print(rating)
 
         if form.is_valid():
             obj = form.save(commit = False)
@@ -200,7 +196,6 @@ def allReviews(request,link,review_type):
     type_boolean = True if review_type == "critic" else False
 
     reviews = list(reversed(Review2.objects.filter(movie = movie,review_type = type_boolean)))
-    print(reviews)
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)

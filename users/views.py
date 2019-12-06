@@ -119,4 +119,6 @@ def settings(request, link):
 
        return redirect('/users/' + usermodel.user_name)
     else:
-       return render(request, 'pages/accessdenied.html')
+      error_message = "You do not have access to this page. Unlucky."
+      context = {'usermodel' : usermodel, 'error_message' : error_message}
+      return render(request, 'pages/errormessage.html',context=context)
