@@ -7,7 +7,6 @@
    <center>
       <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
       <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
-      <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white; float: right; visibility: hidden;">Go back</a>
 
       {% if usermodel.critic == True %}
       <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit Critic Review</a>

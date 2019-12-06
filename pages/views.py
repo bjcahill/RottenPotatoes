@@ -5,6 +5,7 @@ from .forms import NewUserForm
 
 from users.models import Usermodel
 from movies.models import Movie
+from django.contrib.auth.models import User
 
 import operator
 

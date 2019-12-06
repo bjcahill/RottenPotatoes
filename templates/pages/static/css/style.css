@@ -68,6 +68,14 @@
    border-radius: 20px;
    color: white;
 }
+
+.greybutton {
+  
+  background: rgb(235, 235, 235);
+  padding: 4px;
+  color: black;
+  text-decoration: none;
+}
 /*----------------------------------------------------
 @File: Default Styles
 @Author: Rocky Ahmed
