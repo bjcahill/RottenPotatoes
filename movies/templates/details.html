@@ -5,8 +5,9 @@
 {% load movie_filters %}
 <div>
    <center>
-      <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
+      <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
       <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
+      <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white; float: right; visibility: hidden;">Go back</a>
 
       {% if usermodel.critic == True %}
       <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit Critic Review</a>
@@ -48,7 +49,7 @@
 <div style="margin-left: 10%; margin-right: 10%; list-style-type:none;">
 
    <center>
-      <a class="goback" href="../../allreviews/{{movie.link}}/critic">See All</a>
+      <a style="visibility: hidden;" class="goback" href="../../allreviews/{{movie.link}}/critic">See All</a>
       <h3 style="color: white; display: inline-block;">Top Critic Reviews</h3>
       <a class="mybtn" href="../../allreviews/{{movie.link}}/critic">See All</a>
    <center>
@@ -79,7 +80,7 @@
    <br><br><br><br>
 
    <center>
-      <a class="goback" href="../../allreviews/{{movie.link}}/user">See All</a>
+      <a style="visibility: hidden;" class="goback" href="../../allreviews/{{movie.link}}/user">See All</a>
       <h3 style="color: white; display: inline-block;">Top User Reviews</h3>
       <a class="mybtn" href="../../allreviews/{{movie.link}}/user">See All</a>
    <center>

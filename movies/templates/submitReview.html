@@ -4,7 +4,7 @@
 {% block content %}
 
 <center>
-    <a class="goback" href="/movies/details/{{movie.link}}" style="text-decoration: none; color: white;">Go back</a>
+    <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
     <h2 style="color:white; display: inline-block">Submit {{type}} Review for {{movie}}</h2>
 </center>
 
@@ -17,5 +17,7 @@
     </div>
     <button type="submit">Save</button>
 </form>
+
+<br><br>
 
 {% endblock %}

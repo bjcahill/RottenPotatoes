@@ -3,15 +3,27 @@ from django.http import *
 from .models import *
 from .forms import *
 
+import operator
+from django.template.defaultfilters import slugify
+
 from users.models import Usermodel
 from movies.models import Review2
 
 def index(request):
+    movies = Movie.objects.all()
+    searched = False
+    search_term = "hi"
+
+    if 'sort2' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('title'))
+    elif 'sort1' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('critic_score'))
+        movies = movies[::-1]
+
     if 'search' in request.GET:
         search_term = request.GET['search']
         movies = Movie.objects.all().filter(title__icontains=search_term)
-    else:
-        movies = Movie.objects.all()
+        searched = True
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -20,7 +32,9 @@ def index(request):
 
     context = {
         'movies': movies,
-        'usermodel' : usermodel
+        'usermodel' : usermodel,
+        'searched' : searched,
+        'term' : search_term
     }
 
     return render(request, 'index.html', context)
@@ -63,8 +77,13 @@ def submitMovie(request):
 
     if request.method == "POST":
         form = MovieForm(request.POST, request.FILES)
+        link = slugify(request.POST['title'])
+
         if form.is_valid():
-            form.save()
+            obj = form.save(commit = False)
+            obj.creator = request.user
+            obj.link = slugify(link)
+            obj.save()
             return redirect('..')
     else:
         form = MovieForm()
@@ -74,13 +93,24 @@ def submitMovie(request):
 def submitReview(request,link):
     movie = Movie.objects.get(link=link)
 
-    if not request.user.is_authenticated or request.user.is_superuser:
-        return render(request, 'pages/accessdenied.html')
-
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
         usermodel = None
+
+    if not request.user.is_authenticated or request.user.is_superuser:
+        error_message = "You do not have permission to view this page. Unlucky."
+        context = {'usermodel' : usermodel, 'error_message' : error_message}
+        return render(request, 'pages/errormessage.html', context=context)
+    
+    reviews_by_user = Review2.objects.filter(movie = movie,user = request.user)
+
+    if len(reviews_by_user) > 0:
+        error_message = "You've already submitted a review for this movie!"
+        context = {'usermodel' : usermodel, 'error_message' : error_message}
+        return render(request,'pages/errormessage.html',context=context)
+
+    
 
     if request.method == "POST":
         form = ReviewForm(request.POST)
@@ -121,10 +151,20 @@ def submitReview(request,link):
 
 def nowplaying(request):
     movies = Movie.objects.all().filter(inTheater = True)
+    searched = False
+    search_term = "hi"
+
+    if 'sort2' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('title'))
+    elif 'sort1' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('critic_score'))
+        movies = movies[::-1]
+
 
     if 'search' in request.GET:
         search_term = request.GET['search']
         movies = movies.filter(title__icontains=search_term)
+        searched = True
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -133,7 +173,9 @@ def nowplaying(request):
 
     context = {
         'movies': movies,
-        'usermodel' : usermodel
+        'usermodel' : usermodel,
+        'searched' : searched,
+        'term' : search_term
     }
 
     return render(request, 'nowplaying.html', context)
