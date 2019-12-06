@@ -17,8 +17,11 @@
     <h3 style="color: white; display: inline-block;"> Feel free to edit your information.</h3>
 </div>
 
+{% if message %}
+{{message}}
+{% endif %}
 
-<form class="form" method="post" action="" enctype="multipart/form-data">
+<form class="form" method="POST" action="" enctype="multipart/form-data">
     <div>
        {% csrf_token %}
         {{ form.as_p }}

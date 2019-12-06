@@ -25,6 +25,17 @@
    margin-left: 20px;
    font-size: 16px;
 }
+.gobackcenter {
+  float: center;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: red;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 20px;
+  font-size: 16px;
+}
 
 .goback:hover {
    background: rgb(255, 68, 68);
