@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<br><br><br>
+<div>
+<a class="goback" href="javascript:history.back()" style="text-decoration: none; color: white;">Go back</a>
+</div>
+
+<div>
+    <h3 style="color: white; display: inline-block;"> Error: {{error_message}} </h3>
+</div>
+
+<br><br><br>
+
+{% endblock %}
