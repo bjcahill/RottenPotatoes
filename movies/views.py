@@ -91,7 +91,7 @@ def submitMovie(request):
             obj.link = link
             obj.save()
             return redirect('..')
-        
+
         else:
             context = {'form': form, 'usermodel' : usermodel}
             return render(request, 'submitMovie.html', context=context)
@@ -113,7 +113,7 @@ def submitReview(request,link):
         error_message = "You do not have permission to view this page. Unlucky."
         context = {'usermodel' : usermodel, 'error_message' : error_message}
         return render(request, 'pages/errormessage.html', context=context)
-    
+
     reviews_by_user = Review2.objects.filter(movie = movie,user = request.user)
 
     if len(reviews_by_user) > 0:
@@ -121,7 +121,7 @@ def submitReview(request,link):
         context = {'usermodel' : usermodel, 'error_message' : error_message}
         return render(request,'pages/errormessage.html',context=context)
 
-    
+
 
     if request.method == "POST":
         form = ReviewForm(request.POST)
@@ -167,8 +167,11 @@ def nowplaying(request):
 
     if 'alphabet' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
-    elif 'score' in request.GET:
+    if 'critic_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('critic_score'))
+        movies = movies[::-1]
+    if 'user_score' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('user_score'))
         movies = movies[::-1]
 
 

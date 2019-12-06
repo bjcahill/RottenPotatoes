@@ -4,9 +4,10 @@
 {% block content %}
 
 {% load movie_filters %}
-<center>
-    <a class="goback" href="/movies/details/{{movie.link}}" style="text-decoration: none; color: white;">Go back</a>
-    <h2 style="color:white; display: inline-block">All {{review_text}} Reviews for {{movie}}</h2>
+<center style="padding-left: 6%; padding-right: 6%">
+    <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
+    <h2 style="color:white; display: inline-block">All {{review_text}} Reviews for {{movie.title}}</h2>
+    <a class="goback" href="/movies/details/{{movie.link}}" style="text-decoration: none; color: white; float:right; visibility:hidden;">Go back</a>
 </center>
 
 <br><br><br>
@@ -25,7 +26,7 @@
     <u1>
     {% for review in reviews %}
     <center>
-        <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px; list-style-type:none;">
+        <div style="margin-left: 8%;margin-right: 8%; background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px; list-style-type:none;">
             <li><a href="../../../users/{{review.user | get_user_name}}" style="font-weight: 600; font-size: 24px; color: white; display: inline-block; margin:10px;">{{review.user | get_user_name}}</a>{{review.score | to_int}} / 10</li>
             <br>
             <li>{{review.review}}</li>

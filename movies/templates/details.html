@@ -4,21 +4,23 @@
 
 {% load movie_filters %}
 <div>
-   <center>
+   <center style="padding-left: 6%; padding-right: 6%;">
       <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
       <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
 
       {% if usermodel.critic == True %}
       <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit Critic Review</a>
+      <button style="float:left; width:10%; visibility: hidden;"> </button>
       {% elif usermodel.critic == False %}
       <a class="mybtn" href="../../submitReview/{{movie.link}}">Submit User Review</a>
       {% else %}
+      <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white; visibility:hidden; float: right;">Go back</a>
       {% endif %}
    </center>
 
    <br><br><br><br>
 
-   <div style="margin-left: 15%; margin-right: 10%; display: inline-block; width: 250px; height: 375px">
+   <div style="margin-left: 24%; margin-right: 10%; display: inline-block; width: 250px; height: 375px">
       <img src="{{movie.image.url}}" alt="Image Not Found" width=100% height=100%>
    </div>
    <div style="display: inline-block;
@@ -32,6 +34,7 @@
                font-size: 18px">
       <h3>Movie Details</h3>
       <ul style="list-style-type:none;">
+         <br>
          <li>Director: {{movie.director}}</li>
          <li>Star: {{movie.star}}</li>
          <li>User Score: {{movie.user_score | round_movie_score}} / 10</li>

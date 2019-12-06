@@ -6,10 +6,14 @@
 <div>
 
    {% if usermodel != None %}
-   <center>
+   <center style="padding-left: 6%; padding-right:6%">
       <a class="goback" href="javascript:history.back()" style="text-decoration: none;">Go back</a>
       <h1 style="color: white; display: inline-block;"> {{page_usermodel.user_name}}</h1>
+      {% if page_usermodel.user_name == usermodel.user_name %}
       <a class="mybtn" href="settings">Go to Settings</a>
+      {% else %}
+      <a class="mybtn" href="settings" style="visibility: hidden">Go to Settings</a>
+      {% endif %}
    </center>
    <!-- <a href="../../logout" -->
    {% else %}
@@ -66,7 +70,7 @@
 
       {% for review in reviews %}
       <div style="background-color: rgb(60, 189, 209); padding:50px; color: white; border-radius:20px; font-size: 18px;">
-         <li><a href="../../../movies/details/{{review.movie.link}}" style="font-weight: 600; font-size: 24px; color: white; display: inline-block; margin:10px;">{{review.movie}}</a>{{review.score | to_int}} / 10</li>
+         <li><a href="../../../movies/details/{{review.movie.link}}" style="font-weight: 600; font-size: 24px; color: white; display: inline-block; margin:10px;">{{review.movie.title}}</a>{{review.score | to_int}} / 10</li>
          <br>
          <li>{{review.review}}</li>
          <br>
