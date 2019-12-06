@@ -37,9 +37,9 @@ def index(request):
         'top_critic' : top_critic,
         'top_user' : top_user,
         'top_critic_image' : top_critic_image,
-        'top user_image' : top_user_image,
+        'top_user_image' : top_user_image,
   }
-  
+
   return render(request, 'pages/newindex.html', context)
 
 def signup(request):
@@ -65,7 +65,7 @@ def signup(request):
                                     'email' : request.user.email})
         context = {'form': form}
         return render(request, 'pages/signup.html', context)
-      
+
       form = NewUserForm(request.POST,request.FILES)
 
       if not form.is_valid():
