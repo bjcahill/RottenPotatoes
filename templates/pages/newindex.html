@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+{% load movie_filters %}
+
+<br>
+
+<center>
+    <div>
+        <h1 style="color: white; display: inline-block;">Welcome to Rotten Potatoes!</h1>
+        <br>
+        <br>
+        <h4 style="color: white; display: inline-block;">Find super-inaccurate ratings and reviews of a few of your favorite movies!</h4>
+    </div>
+
+    <br>
+
+    <div style="display: inline-block; margin-left: 2%; color:white; list-style-type:none;">
+
+        <h1 style="color: white;"> Top Critic Movies</h1>
+
+        <br>
+
+        <a href="movies/details/{{top_critic.link}}"><img src="{{top_critic_image}}" alt="Image Not Found" width=65% height=65%></a>
+
+        <br><br><br>
+
+        {% for movie in top_critic_movies %}
+            <li class="homepagemovie" href="details/{{movie.link}}">
+                <br>
+                <a style="text-decoration: none; color: white;" href="movies/details/{{movie.link}}">{{movie.title}}</a>
+                <br>
+                <br>
+                <a style="text-decoration: none; color: white;" href="movies/details/{{movie.link}}">{{movie.critic_score | round_movie_score}} / 10</a>
+            </li>
+            <br>
+        {% endfor %}
+
+        <br>
+
+        <h1 style="color: white;"> Top User Movies</h1>
+
+        <br>
+
+        <a href="movies/details/{{top_user.link}}"><img src="{{top_user_image}}" alt="Image Not Found" width=65% height=65%></a>
+
+        <br><br><br>
+
+        {% for movie in top_user_movies %}
+            <li class="homepagemovie" href="details/{{movie.link}}">
+                <br>
+                <a style="text-decoration: none; color: white;" href="movies/details/{{movie.link}}">{{movie.title}}</a>
+                <br>
+                <br>
+                <a style="text-decoration: none; color: white;" href="movies/details/{{movie.link}}">{{movie.user_score | round_movie_score}} / 10</a>
+            </li>
+            <br>
+        {% endfor %}
+
+        <br>
+
+        </div>
+    <center>
+<br><br>
+
+{% endblock %}

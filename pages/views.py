@@ -4,6 +4,9 @@ from django.views.decorators.http import require_POST
 from .forms import NewUserForm
 
 from users.models import Usermodel
+from movies.models import Movie
+
+import operator
 
 def index(request):
 
@@ -12,11 +15,32 @@ def index(request):
   except:
     usermodel = None
 
+  movies = Movie.objects.all()
+
+  top_critic_movies = sorted(movies, key=operator.attrgetter('critic_score'))
+  top_critic_movies = top_critic_movies[::-1][:3]
+  top_user_movies = sorted(movies, key=operator.attrgetter('user_score'))
+  top_user_movies = top_user_movies[::-1][:3]
+
+  top_critic = top_critic_movies[0]
+  top_user = top_user_movies[0]
+
+  top_critic_image = top_critic_movies[0].image.url
+  top_user_image = top_user_movies[0].image.url
+
+  print(top_user_image)
+
   context = {
         'usermodel': usermodel,
+        'top_critic_movies' : top_critic_movies,
+        'top_user_movies' : top_user_movies,
+        'top_critic' : top_critic,
+        'top_user' : top_user,
+        'top_critic_image' : top_critic_image,
+        'top user_image' : top_user_image,
   }
   
-  return render(request, 'pages/index.html', context)
+  return render(request, 'pages/newindex.html', context)
 
 def signup(request):
 
