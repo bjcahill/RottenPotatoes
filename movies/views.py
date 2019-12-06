@@ -3,15 +3,25 @@ from django.http import *
 from .models import *
 from .forms import *
 
+import operator
+
 from users.models import Usermodel
 from movies.models import Review2
 
 def index(request):
+    movies = Movie.objects.all()
+    searched = False
+
+    if 'sort2' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('title'))
+    elif 'sort1' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('critic_score'))
+        movies = movies[::-1]
+
     if 'search' in request.GET:
         search_term = request.GET['search']
         movies = Movie.objects.all().filter(title__icontains=search_term)
-    else:
-        movies = Movie.objects.all()
+        searched = True
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -20,7 +30,8 @@ def index(request):
 
     context = {
         'movies': movies,
-        'usermodel' : usermodel
+        'usermodel' : usermodel,
+        'searched' : searched
     }
 
     return render(request, 'index.html', context)
