@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 
 import operator
+from django.template.defaultfilters import slugify
 
 from users.models import Usermodel
 from movies.models import Review2
@@ -11,6 +12,7 @@ from movies.models import Review2
 def index(request):
     movies = Movie.objects.all()
     searched = False
+    search_term = "hi"
 
     if 'sort2' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
@@ -31,7 +33,8 @@ def index(request):
     context = {
         'movies': movies,
         'usermodel' : usermodel,
-        'searched' : searched
+        'searched' : searched,
+        'term' : search_term
     }
 
     return render(request, 'index.html', context)
@@ -74,8 +77,13 @@ def submitMovie(request):
 
     if request.method == "POST":
         form = MovieForm(request.POST, request.FILES)
+        link = slugify(request.POST['title'])
+
         if form.is_valid():
-            form.save()
+            obj = form.save(commit = False)
+            obj.creator = request.user
+            obj.link = slugify(link)
+            obj.save()
             return redirect('..')
     else:
         form = MovieForm()
@@ -143,10 +151,20 @@ def submitReview(request,link):
 
 def nowplaying(request):
     movies = Movie.objects.all().filter(inTheater = True)
+    searched = False
+    search_term = "hi"
+
+    if 'sort2' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('title'))
+    elif 'sort1' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('critic_score'))
+        movies = movies[::-1]
+
 
     if 'search' in request.GET:
         search_term = request.GET['search']
         movies = movies.filter(title__icontains=search_term)
+        searched = True
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
@@ -155,7 +173,9 @@ def nowplaying(request):
 
     context = {
         'movies': movies,
-        'usermodel' : usermodel
+        'usermodel' : usermodel,
+        'searched' : searched,
+        'term' : search_term
     }
 
     return render(request, 'nowplaying.html', context)

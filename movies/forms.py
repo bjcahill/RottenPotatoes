@@ -13,7 +13,6 @@ class MovieForm(ModelForm):
                   'rating',
                   'releaseDate',
                   'studio',
-                  'link',
                   'inTheater']
 
 class TestMovieForm(ModelForm):

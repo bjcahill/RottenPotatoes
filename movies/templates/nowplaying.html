@@ -10,7 +10,16 @@
 
    <a class="mybtn" href="../submitMovie">Submit Movie</a>
 
-   <br><br><br>
+   {% if not searched %}
+      <br><br><br>
+
+      <form class="form-inline active-purple-3 active-purple-4" style="margin-left: 2%; display: inline-block;">
+         <button type="get" name="sort1">Sort By Score</button>
+         <button type="get" name="sort2">Sort Alphabetically</button>
+      </form>
+   {% endif %}
+
+   <br><br>
 
    <form class="form-inline active-purple-3 active-purple-4" style="margin-left: 2%; display: inline-block;">
       <button type="submit"><i class="fa fa-search"></i></button>
@@ -20,17 +29,29 @@
 
    <br>
 
+   {% if searched %}
+   <p style="color: white; font-size: 24px; padding-left: 24px;"> Results for: "{{term}}" </p>
+   <br>
+   {% endif %}
+
    <ul>
-      {% for movie in movies %}
-      <li class="movie" href="../details/{{movie.link}}"">
-            <a href="../details/{{movie.link}}"><img src="{{movie.image.url}}" alt="" width=100% height=100%></a>
-            <br>
-            <br>
-            <a style="text-decoration: none; color: white;" href="../details/{{movie.link}}">{{movie.title}}</a>
-            <br>
-            <a style="text-decoration: none; color: white;" href="../details/{{movie.link}}">{{movie.critic_score | round_movie_score}} / 10</a>
-         </li>
-      {% endfor %}
+      {% if movies %}
+         {% for movie in movies %}
+         <li class="movie" href="details/{{movie.link}}"">
+               <a href="details/{{movie.link}}"><img src="{{movie.image.url}}" alt="" width=100% height=100%></a>
+               <br>
+               <br>
+               <a style="text-decoration: none; color: white;" href="details/{{movie.link}}">{{movie.title}}</a>
+               <br>
+               <a style="text-decoration: none; color: white;" href="details/{{movie.link}}">{{movie.critic_score | round_movie_score}} / 10</a>
+            </li>
+         {% endfor %}
+      {% endif %}
+
+      {% if not movies %}
+         <br>
+         <p style="color: white; font-size: 24px; padding-left: 24px;"> No matches found :( </p>
+      {% endif %}
    </ul>
 </div>
 {% endblock %}
