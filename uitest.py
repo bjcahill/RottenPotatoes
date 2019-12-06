@@ -6,8 +6,6 @@ import unittest
 
 # to run these tests, first start the website using python manage.py runserver and then run this using python uitest.py
 
-# uses the python unittest framework
-
 class TestUI(unittest.TestCase):
 
     def test_website_title(self):
