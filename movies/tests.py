@@ -3,6 +3,7 @@ import datetime
 
 from movies.models import *
 from movies.forms import *
+from django.contrib.auth.models import User
 
 class MoviesTests(TestCase):
     def setUp(self):
@@ -16,17 +17,6 @@ class MoviesTests(TestCase):
                              releaseDate="2000-01-01",
                              studio="abc",
                              link="mine")
-        Movie.objects.create(title="It's me",
-                             director="Michael",
-                             image= "hello.png",
-                             star="you",
-                             score="10",
-                             runTime=13,
-                             rating="PG",
-                             releaseDate="2000-05-01",
-                             studio="nbc",
-                             link="mine")
-    def setUp2(self):
         Movie.objects.create(title="It's me",
                              director="Michael",
                              image= "hello.png",
@@ -98,3 +88,31 @@ class ReviewTests(TestCase):
         self.assertEqual(review.critic, "Joe")
         self.assertEqual(review.review, "hello")
         self.assertEqual(review.movie.title, "Pika1")
+
+class Review2Tests(TestCase):
+    def setUp(self):
+        Movie.objects.create(title="Pika1")
+        u = User.objects.create_user('joe', 'lennon@thebeatles.com', 'johnpassword')
+        Review2.objects.create(id = "1", critic="Joe",
+                              review="hello",
+                              score = "8.7",
+                              movie=Movie.objects.get(title="Pika1"),
+                              user = u,
+                              review_type = True)
+    def test1(self):
+        review = Review2.objects.get(critic="Joe")
+        self.assertEqual(review.critic, "Joe")
+        self.assertEqual(review.review, "hello")
+        self.assertEqual(review.movie.title, "Pika1")
+        self.assertEqual(review.score , 8.7)
+        self.assertEqual(review.user , User.objects.get(username = 'joe'))
+        self.assertEqual(review.review_type , True)
+        
+    def test2(self):
+        review = Review2.objects.get(critic="Joe")
+        self.assertNotEqual(review.critic, "Joe2")
+        self.assertNotEqual(review.review, "hello2")
+        self.assertNotEqual(review.movie.title, "Pika12")
+        self.assertNotEqual(review.score , 8.8)
+        self.assertNotEqual(review.user , "x")
+        self.assertNotEqual(review.review_type , False)
