@@ -5,7 +5,7 @@
 {% load movie_filters %}
 <div>
    <center>
-      <a class="goback" href="../.." style="text-decoration: none;">Go back</a>
+      <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
       <h1 style="color: white; display: inline-block;">{{movie.title}}</h1>
 
       {% if usermodel.critic == True %}
