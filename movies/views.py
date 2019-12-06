@@ -73,20 +73,25 @@ def submitMovie(request):
 
 def submitReview(request,link):
     movie = Movie.objects.get(link=link)
-    reviews_by_user = Review2.objects.filter(movie = movie,user = request.user)
-
-    if not request.user.is_authenticated or request.user.is_superuser:
-        return render(request, 'pages/accessdenied.html')
-
-    if len(reviews_by_user) > 0:
-        error_message = "You've already submitted a review for this movie!"
-        context = {'error_message' : error_message}
-        return render(request,'pages/errormessage.html',context=context)
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
         usermodel = None
+
+    if not request.user.is_authenticated or request.user.is_superuser:
+        error_message = "You do not have permission to view this page. Unlucky."
+        context = {'usermodel' : usermodel, 'error_message' : error_message}
+        return render(request, 'pages/errormessage.html', context=context)
+    
+    reviews_by_user = Review2.objects.filter(movie = movie,user = request.user)
+
+    if len(reviews_by_user) > 0:
+        error_message = "You've already submitted a review for this movie!"
+        context = {'usermodel' : usermodel, 'error_message' : error_message}
+        return render(request,'pages/errormessage.html',context=context)
+
+    
 
     if request.method == "POST":
         form = ReviewForm(request.POST)

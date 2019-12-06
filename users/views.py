@@ -15,20 +15,28 @@ from django.contrib.auth import logout as auth_logout
 
 def index(request):
 
+   try:
+      usermodel = Usermodel.objects.get(user_id=request.user.id)
+   except:
+      usermodel = None
+
    if request.user.is_superuser:
-      return render(request, 'pages/nopoint.html')
+      error_message = "As an Admin, you don't have a user profile and thus viewing this page is pointless."
+      context = {'usermodel' : usermodel, 'error_message' : error_message}
+      return render(request, 'pages/errormessage.html',context=context)
 
    if not request.user.is_authenticated:
-      return render(request, 'pages/notsignedin.html')
+      return redirect('..')
+      # error_message = "You do not have permission to view this page. You need to sign in with Google first."
+      # context = {'usermodel' : usermodel, 'error_message' : error_message}
+      # return render(request, 'pages/errormessage.html', context=context)
 
    try:
       Usermodel.objects.get(user_id=request.user.id)
       has_profile = True
-      print("user has a profile")
       usermodel = Usermodel.objects.get(user_id=request.user.id)
    except:
       has_profile = False
-      print("user does not have a profile")
       usermodel = None
 
    if has_profile:
@@ -40,7 +48,9 @@ def index(request):
          'usermodel' : usermodel
       }
 
-      return render(request, 'userdefault.html', context)
+      name = usermodel.user_name
+
+      return redirect('../../../users/' + name)
 
    else:
 
@@ -50,7 +60,7 @@ def logout(request):
    logout(request)
 
 def profile(request, link):
-    page_usermodel = Usermodel.objects.get(user_name=link)
+    page_usermodel = Usermodel.objects.get(user_name=link.replace("%20", " "))
     page_user = page_usermodel.user
     reviews = list(reversed(Review2.objects.filter(user=page_user)))
 
@@ -91,15 +101,21 @@ def settings(request, link):
          context = {'form': form, 'oldusermodel' : usermodel.user_name}
          return render(request, 'settings.html', context)
 
-       form = NewUserForm(request.POST,instance=usermodel)
+       form = NewUserForm(request.POST,request.FILES, instance=usermodel)
 
        if not form.is_valid():
-         print(form.errors)
-
-         context = {'form': form, 'message' : form.errors, 'oldusermodel' : usermodel.user_name}
+         context = {'form': form, 'oldusermodel' : usermodel.user_name}
          return render(request, 'settings.html', context)
 
-       form.save()
+       new_post = form.save(commit=False)
+       current_username = new_post.user_name
+
+       if " " in current_username:
+
+         context = {'form': form, 'message' : "Username cannot have space in it", 'oldusermodel' : usermodel.user_name}
+         return render(request, 'settings.html', context)
+
+       new_post.save()
 
        return redirect('/users/' + usermodel.user_name)
     else:
