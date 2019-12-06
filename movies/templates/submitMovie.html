@@ -3,14 +3,15 @@
 
 {% block content %}
 
-<center>
+<center style="padding-left: 6%; padding-right: 6%;">
    <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
    <h2 style="color:white; display: inline-block">Submit Movie</h2>
+   <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white; visibility: hidden; float:right;">Go back</a>
 </center>
 
 <br><br>
 
-<form class="movieform" method="post" action="" enctype="multipart/form-data">
+<form class="movieform" method="post" action="" enctype="multipart/form-data" style="margin-left: 6%; margin-right: 6%">
    <div>
       {% csrf_token %}
       {{ form.as_p }}

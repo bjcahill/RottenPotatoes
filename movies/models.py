@@ -39,9 +39,6 @@ class Movie(models.Model):
 
     inTheater = models.BooleanField(default=0)
 
-    def __str__(self):
-        return self.title
-
 class Review(models.Model):
     critic = models.CharField(max_length=50, default="NULL", primary_key=True)
     review = models.TextField(max_length=1000, default="NULL")
@@ -50,7 +47,7 @@ class Review(models.Model):
 class Review2(models.Model):
     id = models.AutoField(primary_key=True)
     critic = models.CharField(max_length=50, default="NULL")
-    review = models.TextField(max_length=1000, default="NULL")
+    review = models.TextField(max_length=1000, default="")
     score = models.FloatField(default=0)
     movie = models.ForeignKey(Movie, default=1, on_delete=models.SET_DEFAULT)
     user = models.ForeignKey('auth.User', default=1, on_delete=models.SET_DEFAULT)

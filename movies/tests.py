@@ -81,6 +81,9 @@ class ReviewTests(TestCase):
         Review.objects.create(critic="Joe",
                               review="hello",
                               movie=Movie.objects.get(title="Pika1"))
+        Review.objects.create(critic="Blah",
+                              review="ahhh",
+                              movie=Movie.objects.get(title="Pika1"))
 
     def test1(self):
         review = Review.objects.get(critic="Joe")
@@ -89,15 +92,22 @@ class ReviewTests(TestCase):
         self.assertEqual(review.review, "hello")
         self.assertEqual(review.movie.title, "Pika1")
 
-class UserTests(TestCase):
-    def setUp(self):
-        u = User.objects.create_user('joe', 'lennon@thebeatles.com', 'johnpassword')
-        
-    def test1(self):
-        User.objects.login(u)
-        
     def test2(self):
-        User.objects.logut(u)
+        review = Review.objects.get(critic="Blah")
+
+        self.assertEqual(review.critic, "Blah")
+        self.assertEqual(review.review, "ahhh")
+        self.assertEqual(review.movie.title, "Pika1")
+
+#class UserTests(TestCase):
+#    def setUp(self):
+#        u = User.objects.create_user('joe', 'lennon@thebeatles.com', 'johnpassword')
+
+#    def test1(self):
+#        User.objects.login(u)
+
+#    def test2(self):
+#        User.objects.logut(u)
 
 class Review2Tests(TestCase):
     def setUp(self):
@@ -125,7 +135,7 @@ class Review2Tests(TestCase):
         self.assertEqual(review.score , 8.7)
         self.assertEqual(review.user , User.objects.get(username = 'joe'))
         self.assertEqual(review.review_type , True)
-        
+
     def test2(self):
         review = Review2.objects.get(critic="Joe")
         self.assertNotEqual(review.critic, "Joe2")
@@ -134,7 +144,7 @@ class Review2Tests(TestCase):
         self.assertNotEqual(review.score , 8.8)
         self.assertNotEqual(review.user , "x")
         self.assertNotEqual(review.review_type , False)
-        
+
     def test3(self):
         review = Review2.objects.get(critic="Mike")
         self.assertNotEqual(review.critic, "Mike2")
@@ -143,7 +153,7 @@ class Review2Tests(TestCase):
         self.assertNotEqual(review.score , 8.8)
         self.assertNotEqual(review.user , "x")
         self.assertNotEqual(review.review_type , False)
-        
+
     def test4(self):
         review = Review2.objects.get(critic="Mike")
         self.assertEqual(review.critic, "Mike")

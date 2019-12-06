@@ -11,6 +11,12 @@ omit = */tests/*,
        */tests.py,
        */__init__.py,
        */apps.py,
+       */linkedNode.py,
+       */settings.py,
+       */admin.py,
+       uitest.py,
+       */movie_filters.py,
+       */pages/models.py
 source = .
 
 [report]
