@@ -5,13 +5,13 @@
 
 <h1 style="color:white; display: inline-block">Submit Movie</h1>
 
-<a class="goback" href=".." style="text-decoration: none; color: white;">Go back</a>
+<a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
 <br><br>
 
 <form class="movieform" method="post" action="" enctype="multipart/form-data">
    <div>
       {% csrf_token %}
-       {{ form.as_p }}
+      {{ form.as_p }}
     </div>
     <button type="submit">Save</button>
 </form>
