@@ -14,10 +14,13 @@ def index(request):
     searched = False
     search_term = "hi"
 
-    if 'sort2' in request.GET:
+    if 'alphabet' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
-    elif 'sort1' in request.GET:
+    if 'critic_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('critic_score'))
+        movies = movies[::-1]
+    if 'user_score' in request.GET:
+        movies = sorted(movies, key=operator.attrgetter('user_score'))
         movies = movies[::-1]
 
     if 'search' in request.GET:
@@ -40,6 +43,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 def search(request, term):
+
     movies = Movie.objects.all()
 
     context = {
@@ -79,12 +83,19 @@ def submitMovie(request):
         form = MovieForm(request.POST, request.FILES)
         link = slugify(request.POST['title'])
 
+        rating = request.POST.get('rating')
+        print(rating)
+
         if form.is_valid():
             obj = form.save(commit = False)
-            obj.creator = request.user
-            obj.link = slugify(link)
+            obj.link = link
             obj.save()
             return redirect('..')
+        
+        else:
+            context = {'form': form, 'usermodel' : usermodel}
+            return render(request, 'submitMovie.html', context=context)
+
     else:
         form = MovieForm()
         context = {'form': form, 'usermodel' : usermodel}
@@ -154,9 +165,9 @@ def nowplaying(request):
     searched = False
     search_term = "hi"
 
-    if 'sort2' in request.GET:
+    if 'alphabet' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
-    elif 'sort1' in request.GET:
+    elif 'score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('critic_score'))
         movies = movies[::-1]
 

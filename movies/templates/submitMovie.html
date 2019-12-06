@@ -3,9 +3,11 @@
 
 {% block content %}
 
-<h1 style="color:white; display: inline-block">Submit Movie</h1>
+<center>
+   <a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
+   <h2 style="color:white; display: inline-block">Submit Movie</h2>
+</center>
 
-<a class="goback" value="Go back!" onclick="history.back()" style="text-decoration: none; color: white;">Go back</a>
 <br><br>
 
 <form class="movieform" method="post" action="" enctype="multipart/form-data">
@@ -15,5 +17,7 @@
     </div>
     <button type="submit">Save</button>
 </form>
+
+<br><br><br>
 
 {% endblock %}

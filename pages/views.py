@@ -5,6 +5,7 @@ from .forms import NewUserForm
 
 from users.models import Usermodel
 from movies.models import Movie
+from django.contrib.auth.models import User
 
 import operator
 
@@ -37,7 +38,7 @@ def index(request):
         'top_critic' : top_critic,
         'top_user' : top_user,
         'top_critic_image' : top_critic_image,
-        'top user_image' : top_user_image,
+        'top_user_image' : top_user_image,
   }
   
   return render(request, 'pages/newindex.html', context)

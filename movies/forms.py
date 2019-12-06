@@ -7,13 +7,23 @@ class MovieForm(ModelForm):
         model = Movie
         fields = ['title',
                   'director',
-                  'image',
                   'star',
+                  'studio',
                   'runTime',
                   'rating',
                   'releaseDate',
-                  'studio',
-                  'inTheater']
+                  'inTheater',
+                  'image']
+        widgets = {
+            'title' : forms.TextInput(attrs= {'class' : 'form-control', 'placeholder' : 'Enter text', 'style': 'width: 300px'}),
+            'director' : forms.TextInput(attrs= {'class' : 'form-control', 'placeholder' : 'Enter text', 'style': 'width: 300px'}),
+            'star' : forms.TextInput(attrs= {'class' : 'form-control', 'placeholder' : 'Enter text', 'style': 'width: 300px'}),
+            'runTime' : forms.NumberInput(attrs= {'class' : 'form-control', 'step': 5, 'style': 'width: 300px'}),
+            'studio' : forms.TextInput(attrs= {'class' : 'form-control', 'placeholder' : 'Enter text', 'style': 'width: 300px'}),
+            'releaseDate' : forms.SelectDateWidget(attrs= {'class' : 'form-control', 'style': 'width: 300px'}),
+            'inTheater' : forms.CheckboxInput(attrs= {'class' : 'form-control', 'style': 'width: 20px'}),
+            'rating' : forms.Select(attrs= {'class' : 'form-control', 'style': 'height : 120px', 'style': 'width: 300px'}),
+        }
 
 class TestMovieForm(ModelForm):
     class Meta:
