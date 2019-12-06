@@ -13,15 +13,23 @@ def index(request):
     movies = Movie.objects.all()
     searched = False
     search_term = "hi"
+    sorted_bool = False
+    sorted_by = "critic"
 
     if 'alphabet' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
+        sorted_bool = True
+        sorted_by = 'alphabetically by title'
     if 'critic_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('critic_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by critic score'
     if 'user_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('user_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by user score'
 
     if 'search' in request.GET:
         search_term = request.GET['search']
@@ -37,7 +45,9 @@ def index(request):
         'movies': movies,
         'usermodel' : usermodel,
         'searched' : searched,
-        'term' : search_term
+        'term' : search_term,
+        'sorted' : sorted_bool,
+        'sorted_by' : sorted_by,
     }
 
     return render(request, 'index.html', context)
@@ -160,15 +170,23 @@ def nowplaying(request):
     movies = Movie.objects.all().filter(inTheater = True)
     searched = False
     search_term = "hi"
-
+    sorted_bool = False
+    sorted_by = "critic"
+    
     if 'alphabet' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
+        sorted_bool = True
+        sorted_by = 'alphabetically by title'
     if 'critic_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('critic_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by critic score'
     if 'user_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('user_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by user score'
 
 
     if 'search' in request.GET:
@@ -185,7 +203,9 @@ def nowplaying(request):
         'movies': movies,
         'usermodel' : usermodel,
         'searched' : searched,
-        'term' : search_term
+        'term' : search_term,
+        'sorted' : sorted_bool,
+        'sorted_by' : sorted_by,
     }
 
     return render(request, 'nowplaying.html', context)
