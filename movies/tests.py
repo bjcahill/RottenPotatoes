@@ -16,6 +16,27 @@ class MoviesTests(TestCase):
                              releaseDate="2000-01-01",
                              studio="abc",
                              link="mine")
+        Movie.objects.create(title="It's me",
+                             director="Michael",
+                             image= "hello.png",
+                             star="you",
+                             score="10",
+                             runTime=13,
+                             rating="PG",
+                             releaseDate="2000-05-01",
+                             studio="nbc",
+                             link="mine")
+    def setUp2(self):
+        Movie.objects.create(title="It's me",
+                             director="Michael",
+                             image= "hello.png",
+                             star="you",
+                             score="10",
+                             runTime=13,
+                             rating="PG",
+                             releaseDate="2000-05-01",
+                             studio="nbc",
+                             link="mine")
 
     def test1(self):
         movie = Movie.objects.get(title="Hello World")
@@ -34,6 +55,35 @@ class MoviesTests(TestCase):
     def test2(self):
         form = TestMovieForm({'title': "Testing"})
         self.assertTrue(form.is_valid())
+
+    def test3(self):
+        movie = Movie.objects.get(title="It's me")
+
+        self.assertEqual(movie.title, "It's me")
+        self.assertEqual(movie.director, "Michael")
+        self.assertEqual(movie.image, "hello.png")
+        self.assertEqual(movie.star, "you")
+        self.assertEqual(movie.score, 10)
+        self.assertEqual(movie.runTime, 13)
+        self.assertEqual(movie.rating, "PG")
+        self.assertEqual(movie.releaseDate, datetime.date(2000, 5, 1))
+        self.assertEqual(movie.studio, "nbc")
+        self.assertEqual(movie.link, "mine")
+
+    def test4(self):
+        movie = Movie.objects.get(title="Hello World")
+
+        self.assertNotEqual(movie.title, "It's me")
+        self.assertNotEqual(movie.director, "Michael")
+        self.assertNotEqual(movie.image, "x.png")
+        self.assertNotEqual(movie.star, "you")
+        self.assertNotEqual(movie.score, 10)
+        self.assertNotEqual(movie.runTime, 13)
+        self.assertNotEqual(movie.rating, "R")
+        self.assertNotEqual(movie.releaseDate, datetime.date(2000, 5, 1))
+        self.assertNotEqual(movie.studio, "nbc")
+        self.assertNotEqual(movie.link, "to")
+
 
 class ReviewTests(TestCase):
     def setUp(self):
