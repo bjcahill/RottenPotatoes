@@ -27,6 +27,12 @@ class MovieForm(ModelForm):
             'inTheater' : forms.CheckboxInput(attrs= {'class' : 'form-control', 'style': 'width: 20px'}),
             'rating' : forms.Select(attrs= {'class' : 'form-control', 'style': 'height : 120px', 'style': 'width: 300px'}),
         }
+        labels = {
+        "runTime": "Runtime",
+        "releaseDate" : "Release Date",
+        "inTheater" : "In Theaters?",
+        "image" : "Movie Poster",
+                 }
 
 class TestMovieForm(ModelForm):
     class Meta:

@@ -11,6 +11,7 @@
       <h1 style="color: white; display: inline-block;"> {{page_usermodel.user_name}}</h1>
       {% if page_usermodel.user_name == usermodel.user_name %}
       <a class="mybtn" href="settings">Go to Settings</a>
+      <!-- <a class="mybtn" href="/logout">Sign Out</a> -->
       {% else %}
       <a class="mybtn" href="settings" style="visibility: hidden">Go to Settings</a>
       {% endif %}
@@ -79,6 +80,14 @@
       {% endfor %}
    </div>
 
+   <br><br><br>
+   {% if usermodel != None %}
+      {% if page_usermodel.user_name == usermodel.user_name %}
+      <center>
+         <a class="gobackcenter" href="/logout" style="text-decoration: none; color: white;">Log out</a>
+      </center>
+      {% endif %}
+   {% endif %}
    <br><br><br>
 </div>
 {% endblock %}

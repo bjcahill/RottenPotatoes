@@ -13,15 +13,23 @@ def index(request):
     movies = Movie.objects.all()
     searched = False
     search_term = "hi"
+    sorted_bool = False
+    sorted_by = "critic"
 
     if 'alphabet' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
+        sorted_bool = True
+        sorted_by = 'alphabetically by title'
     if 'critic_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('critic_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by critic score'
     if 'user_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('user_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by user score'
 
     if 'search' in request.GET:
         search_term = request.GET['search']
@@ -37,7 +45,9 @@ def index(request):
         'movies': movies,
         'usermodel' : usermodel,
         'searched' : searched,
-        'term' : search_term
+        'term' : search_term,
+        'sorted' : sorted_bool,
+        'sorted_by' : sorted_by,
     }
 
     return render(request, 'index.html', context)
@@ -57,8 +67,7 @@ def details(request, link):
     movie = Movie.objects.get(link=link)
     user_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = False)))[:3]
     critic_reviews = list(reversed(Review2.objects.filter(movie=movie.title,review_type = True)))[:3]
-    print(critic_reviews)
-    print(user_reviews)
+
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)
     except:
@@ -82,9 +91,6 @@ def submitMovie(request):
     if request.method == "POST":
         form = MovieForm(request.POST, request.FILES)
         link = slugify(request.POST['title'])
-
-        rating = request.POST.get('rating')
-        print(rating)
 
         if form.is_valid():
             obj = form.save(commit = False)
@@ -164,15 +170,23 @@ def nowplaying(request):
     movies = Movie.objects.all().filter(inTheater = True)
     searched = False
     search_term = "hi"
-
+    sorted_bool = False
+    sorted_by = "critic"
+    
     if 'alphabet' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('title'))
+        sorted_bool = True
+        sorted_by = 'alphabetically by title'
     if 'critic_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('critic_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by critic score'
     if 'user_score' in request.GET:
         movies = sorted(movies, key=operator.attrgetter('user_score'))
         movies = movies[::-1]
+        sorted_bool = True
+        sorted_by = 'by user score'
 
 
     if 'search' in request.GET:
@@ -189,7 +203,9 @@ def nowplaying(request):
         'movies': movies,
         'usermodel' : usermodel,
         'searched' : searched,
-        'term' : search_term
+        'term' : search_term,
+        'sorted' : sorted_bool,
+        'sorted_by' : sorted_by,
     }
 
     return render(request, 'nowplaying.html', context)
@@ -200,7 +216,6 @@ def allReviews(request,link,review_type):
     type_boolean = True if review_type == "critic" else False
 
     reviews = list(reversed(Review2.objects.filter(movie = movie,review_type = type_boolean)))
-    print(reviews)
 
     try:
         usermodel = Usermodel.objects.get(user_id=request.user.id)

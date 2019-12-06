@@ -39,6 +39,11 @@
    <br>
    {% endif %}
 
+   {% if sorted %}
+   <p style="color: white; font-size: 20px;"> Results sorted {{sorted_by}} </p>
+   <br>
+   {% endif %}
+
    <ul>
       {% if movies %}
          {% for movie in movies %}
@@ -63,5 +68,6 @@
       {% endif %}
    </ul>
    </center>
+   <br><br>
 </div>
 {% endblock %}
