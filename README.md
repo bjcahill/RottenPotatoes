@@ -11,10 +11,6 @@ The website is a movie reviewing website such as Rotten Tomatoes or IMDB. Both r
 
 ![Movies Page](images/moviespage.PNG)
 
-## Movie Details Page
-
-![Movie Details](images/Moviedetails.PNG)
-
 ## User Profile
 
 ![User Profiles](images/ProfileScreenshot.PNG)
