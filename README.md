@@ -9,12 +9,12 @@ The website is a movie reviewing website such as Rotten Tomatoes or IMDB. Both r
 
 ## Movies Page
 
-![Home Page](images/moviespage.PNG)
+![Movies Page](images/moviespage.PNG)
 
 ## Movie Details Page
 
-![Home Page](images/Moviedetails.PNG)
+![Movie Details](images/Moviedetails.PNG)
 
 ## User Profile
 
-![Home Page](images/ProfileScreenshot.PNG)
+![User Profiles](images/ProfileScreenshot.PNG)
